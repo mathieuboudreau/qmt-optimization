@@ -1,0 +1,57 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+SPGR/FitResults/FitTempResults.mat
+SPGR/FitTempResults.mat
+SPGR/SimResults/SimCurveTempResults.mat
+*.asv
+*.nii
+bSSFP/SimResults/SimCurveTempResults.mat
+Demo.mat
+SIRFSE/SimResults/SimCurveTempResults.mat
+SIRFSE/SimResults/SimRndTempResults.mat
+SPGR/Parameters/NewProtocol.mat
+SIRFSE/SimResults/SimRndTempResults.mat
+SIRFSE/SimResults/SimCurveTempResults.mat
+SIRFSE/SimResults/SimRndTempResults.mat
+Data/SPGR_demo/flipdata.m
