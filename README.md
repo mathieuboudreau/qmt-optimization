@@ -1,6 +1,6 @@
-# qMTLab Tabs
+# qMTLab Tab<sub>1</sub>s
 
-qMTLab Tabs (opTimizAtion for B<sub>1</sub> inSensitivity) 
+qMTLab Tab<sub>1</sub>s (opTimizAtion for B<sub>1</sub> inSensitivity) 
 
 It is an extension of qMTLab, a powerful, open source, scalable, easy to use and intuitive software for qMTI data simulation, fitting and analysis. The software consists of two parts:
 1) a qMT data simulator
@@ -18,10 +18,10 @@ qMTLab was published in Concepts in Magnetic Resonance Part A: [*Quantitative ma
 
 ## Installation
 
-Installing qMTLab Tabs is easy and hassle-free! All you need is a supported version of MATLAB installed, no additional 
+Installing qMTLab Tab<1>s is easy and hassle-free! All you need is a supported version of MATLAB installed, no additional 
 software is required. 
 
-The latest stable version of qMTLab Tabs can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tabs/tarball/master).
+The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tabs/tarball/master).
 
 * Alternatively, you can clone the git repository from GitHub using this link: `https://github.com/mathieuboudreau/qMTLab_Tabs.git` 
 
