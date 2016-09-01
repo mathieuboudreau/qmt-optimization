@@ -1,3 +1,6 @@
+# Temp files
+*.m~
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
