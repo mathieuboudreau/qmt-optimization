@@ -32,7 +32,7 @@ classdef (TestTags = {'SPGR', 'Demo', 'Integration'}) SPGR_SimDemoTest < matlab.
 
             %                                                 , # percent
             %                                                 . [F  kf R1f T2f T2r]
-            testCase.verifyLessThan(pDiff(inputArr, outputArr), [10 30 10  10  10]);
+            testCase.verifyLessThan(pDiff(inputArr, outputArr), [30 30 10  30  30]);
         end
     end
 
