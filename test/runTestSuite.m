@@ -1,4 +1,4 @@
-function [testsResults] = runtests(suiteTag)
+function [testsResults] = runTestSuite(suiteTag)
 %runtests: Run tagged tests from all subdirectories
 %   suiteTag: String matching tags from test classes in subdirectories
 %
