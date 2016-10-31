@@ -39,6 +39,26 @@ If you experience any compatibility issues, please report them through [GitHub](
 
 ## Data Format
 
+## To-Do
+
+# Development Branch
+
+* Extend Sensitivity Calculation for B1 variations (constant T1)
+
+* Add T1 signal generation
+
+* Add T1 fitting
+
+* Extend Sensitivity Calculation for B1 variations (VFA T1)
+
+# Optimization Branch
+
+* Implement Sensitivity Analysis metrics calculations
+
+* Write algorithm that takes a 2xN array argument (values, zSpectrumID; cell array) identifies the index of the largest (smallest?) value
+
+* Write function that will take the index to be removed, store it in a list variable (to keep track when each point was removed), 
+
 ## Contributing
 
 Please report any bugs or suggest new features through [GitHub](https://github.com/mathieuboudreau/qMTLab_Tabs/issues).
