@@ -41,7 +41,7 @@ If you experience any compatibility issues, please report them through [GitHub](
 
 ## To-Do
 
-# Development Branch
+### Development Branch
 
 * Extend Sensitivity Calculation for B1 variations (constant T1)
 
@@ -51,7 +51,7 @@ If you experience any compatibility issues, please report them through [GitHub](
 
 * Extend Sensitivity Calculation for B1 variations (VFA T1)
 
-# Optimization Branch
+### Optimization Branch
 
 * Implement Sensitivity Analysis metrics calculations
 
