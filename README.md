@@ -59,6 +59,23 @@ If you experience any compatibility issues, please report them through [GitHub](
 
 * Write function that will take the index to be removed, store it in a list variable (to keep track when each point was removed), 
 
+### Analysis Branch
+
+* Create 2D Shepp-Logan phantom generator for specific tissue tags
+
+* Convert extra high res shepp-logan phantom to imaging resolution, to investigate multi-tissue voxel impact
+
+* Function that takes Shepp-Logan phantom and qMT protocol as args, and outputs the ideal qMT measured values.
+
+* Function that takes ideal qMT Shepp-Logan set and noise level, and adds noise to images.
+
+* qMT data fitting framework integration with qMTLab
+
+* Script to investigate B1 errors varying homogeneously %-wise for scaled values (1%, 5%, 10%, 25%), or higher res?
+
+* Script to investigate Nominal Flip Angle assumption on qMT.
+
+
 ## Contributing
 
 Please report any bugs or suggest new features through [GitHub](https://github.com/mathieuboudreau/qMTLab_Tabs/issues).
