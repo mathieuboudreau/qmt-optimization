@@ -1,4 +1,4 @@
-function [sensitivityOfInterest, zSpectrum, d_zSpectrum, Prot] = calcSensitivity(qMT5Params, paramOfInterest, varargin)
+function [sensitivityOfInterest, zSpectrum, d_zSpectrum, Prot] = calcSensitivity(qMT5Params, paramOfInterest, protocolFile, varargin)
 %CALCSENSITIVITY Calculate the sensitivity of the MT signal relative to a
 %parameter of interest. Current implementation uses the 5 parameter qMT
 %SPGR model by Sled & Pike and using a simulated signal calculation until
@@ -35,8 +35,8 @@ function [sensitivityOfInterest, zSpectrum, d_zSpectrum, Prot] = calcSensitivity
 
     d_qMT5Params = qMT5Params + (qMT5Params.*paramOfInterest)*(deltaPerc/100);
 
-    [zSpectrum,      ~]   = generateSignalSPGR(qMT5Params);
-    [d_zSpectrum, Prot]   = generateSignalSPGR(d_qMT5Params);
+    [zSpectrum,      ~]   = generateSignalSPGR(qMT5Params, protocolFile);
+    [d_zSpectrum, Prot]   = generateSignalSPGR(d_qMT5Params, protocolFile);
 
     sensitivityOfInterest = (d_zSpectrum - zSpectrum) ...
                                          /            ...

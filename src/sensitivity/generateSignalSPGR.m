@@ -1,4 +1,4 @@
-function [zSpectrum, Prot] = generateSignalSPGR(qMT5Params, varargin)
+function [zSpectrum, Prot] = generateSignalSPGR(qMT5Params, protocolFile, varargin)
 %GENERATESIGNALSPGR Generate noisless SPGR signal Z-spectrum for input qMT
 %                   tissue parameters.
 %
@@ -31,7 +31,7 @@ function [zSpectrum, Prot] = generateSignalSPGR(qMT5Params, varargin)
                                                                             qMT5Params, ...
                                                                             noiseFlag);
     Sim.Opt.SStol = 1e-5;
-    Prot   = load('SPGR/Parameters/DemoProtocol.mat');   % load default protocol
+    Prot   = load(protocolFile);   % load default protocol
 
     zSpectrum = SPGR_sim(Sim, Prot);
 end
