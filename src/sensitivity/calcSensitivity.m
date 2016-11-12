@@ -32,15 +32,35 @@ function [sensitivityOfInterest, zSpectrum, d_zSpectrum, Prot] = calcSensitivity
     else
         deltaPerc = 10^(-2);
     end
+    
+    if strcmp(paramOfInterest,'B1')
+            trueB1 = 1;
+ 
+            prot = load(protocolFile);
+            prot.Alpha = prot.Alpha * (trueB1 + trueB1 * (deltaPerc/100));
+            prot.Angles = prot.Angles * (trueB1 + trueB1 * (deltaPerc/100));
 
-    d_qMT5Params = qMT5Params + (qMT5Params.*paramOfInterest)*(deltaPerc/100);
+            save('tmp.mat', '-struct', 'prot');
+            
+            [zSpectrum,      ~]   = generateSignalSPGR(qMT5Params, protocolFile);
+            [d_zSpectrum, Prot]   = generateSignalSPGR(qMT5Params, 'tmp.mat');
+            sensitivityOfInterest = (d_zSpectrum - zSpectrum) ...
+                                             /            ...
+                                 ((trueB1)*(deltaPerc/100));
+            delete('tmp.mat');
 
-    [zSpectrum,      ~]   = generateSignalSPGR(qMT5Params, protocolFile);
-    [d_zSpectrum, Prot]   = generateSignalSPGR(d_qMT5Params, protocolFile);
+    elseif strcmp(paramOfInterest,'B1_VFA')
 
-    sensitivityOfInterest = (d_zSpectrum - zSpectrum) ...
-                                         /            ...
-            ( qMT5Params(logical( paramOfInterest ))*(deltaPerc/100) );
+    else
+        d_qMT5Params = qMT5Params + (qMT5Params.*paramOfInterest)*(deltaPerc/100);
+
+        [zSpectrum,      ~]   = generateSignalSPGR(qMT5Params, protocolFile);
+        [d_zSpectrum, Prot]   = generateSignalSPGR(d_qMT5Params, protocolFile);
+
+        sensitivityOfInterest = (d_zSpectrum - zSpectrum) ...
+                                             /            ...
+                ( qMT5Params(logical( paramOfInterest ))*(deltaPerc/100) );
+    end
 
 end
 
