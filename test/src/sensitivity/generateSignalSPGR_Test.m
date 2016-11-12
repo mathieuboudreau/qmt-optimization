@@ -12,8 +12,8 @@ classdef (TestTags = {'SPGR', 'Integration'}) generateSignalSPGR_Test < matlab.u
             %                                         [F     kf    R1f   T2f    T2r      ]
             testCase.qMT5Params                     = [0.122 3.97  0.9   0.0272 1.096e-05];
 
-            [testCase.zSpectrum_run1,            ~] = generateSignalSPGR(testCase.qMT5Params);
-            [testCase.zSpectrum_run2,testCase.Prot] = generateSignalSPGR(testCase.qMT5Params);
+            [testCase.zSpectrum_run1,            ~] = generateSignalSPGR(testCase.qMT5Params, 'UK_3T.mat');
+            [testCase.zSpectrum_run2,testCase.Prot] = generateSignalSPGR(testCase.qMT5Params, 'UK_3T.mat');
          end
     end
 

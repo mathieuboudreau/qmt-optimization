@@ -15,7 +15,7 @@ classdef (TestTags = {'SPGR', 'Sensitivity', 'Integration'}) calcSensitivity_Tes
             testCase.qMT5Params                     = [0.122 3.97  0.9   0.0272 1.096e-05];
             testCase.paramOfInterest                = [1     0     0     0      0        ];
 
-            [testCase.sensitivityOfInterest, testCase.zSpectrum, testCase.d_zSpectrum, testCase.Prot] = calcSensitivity(testCase.qMT5Params, testCase.paramOfInterest);
+            [testCase.sensitivityOfInterest, testCase.zSpectrum, testCase.d_zSpectrum, testCase.Prot] = calcSensitivity(testCase.qMT5Params, testCase.paramOfInterest, 'UK_3T.mat');
          end
     end
 
