@@ -1,4 +1,4 @@
-classdef (TestTags = {'SPGR', 'Unit'}) generateConvert_T1f_T1meas_Test < matlab.unittest.TestCase
+classdef (TestTags = {'SPGR', 'Unit'}) convert_T1f_T1meas_Test < matlab.unittest.TestCase
 
     properties
 
