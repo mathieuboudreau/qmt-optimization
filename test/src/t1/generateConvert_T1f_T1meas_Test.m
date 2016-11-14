@@ -12,7 +12,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) generateConvert_T1f_T1meas_Test < matlab.
     end
 
     methods (Test)
-        function testgenerateSPGRSimParam_generates_demo_values(testCase)
+        function testgenerateThatConvertingBothWaysReturnsInitialValue(testCase)
 
             %               [F   kf T1f   T1r ]
             defaultParams = [0.1 3  0.935 1   ];
