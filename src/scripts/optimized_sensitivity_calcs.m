@@ -1,20 +1,20 @@
-[sensitivityOfInterest_B1VFA_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_B1VFA_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_B1VFA_SHORT, zSpectrum_B1VFA_SHORT, d_zSpectrum_B1VFA_SHORT, Prot_B1VFA_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_B1VFA_LONG, zSpectrum_B1VFA_LONG, d_zSpectrum_B1VFA_LONG, Prot_B1VFA_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'OPT_LONG_3T.mat');
 
-[sensitivityOfInterest_B1_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_B1_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_B1_SHORT, zSpectrum_B1_SHORT, d_zSpectrum_B1_SHORT, Prot_B1_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_B1_LONG, zSpectrum_B1_LONG, d_zSpectrum_B1_LONG, Prot_B1_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'OPT_LONG_3T.mat');
 
-[sensitivityOfInterest_F_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_F_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_F_SHORT, zSpectrum_F_SHORT, d_zSpectrum_F_SHORT, Prot_F_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_F_LONG, zSpectrum_F_LONG, d_zSpectrum_F_LONG, Prot_F_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'OPT_LONG_3T.mat');
 
-[sensitivityOfInterest_kf_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_kf_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_kf_SHORT, zSpectrum_kf_SHORT, d_zSpectrum_kf_SHORT, Prot_kf_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_kf_LONG, zSpectrum_kf_LONG, d_zSpectrum_kf_LONG, Prot_kf_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'OPT_LONG_3T.mat');
 
-[sensitivityOfInterest_T2f_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_T2f_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_T2f_SHORT, zSpectrum_T2f_SHORT, d_zSpectrum_T2f_SHORT, Prot_T2f_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_T2f_LONG, zSpectrum_T2f_LONG, d_zSpectrum_T2f_LONG, Prot_T2f_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'OPT_LONG_3T.mat');
 
-[sensitivityOfInterest_T2r_SHORT, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'OPT_SHORT_3T.mat');
-[sensitivityOfInterest_T2r_LONG, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'OPT_LONG_3T.mat');
+[sensitivityOfInterest_T2r_SHORT, zSpectrum_T2r_SHORT, d_zSpectrum_T2r_SHORT, Prot_T2r_SHORT] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'OPT_SHORT_3T.mat');
+[sensitivityOfInterest_T2r_LONG, zSpectrum_T2r_LONG, d_zSpectrum_T2r_LONG, Prot_T2r_LONG] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'OPT_LONG_3T.mat');
 
 %%
 %

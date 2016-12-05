@@ -1,14 +1,14 @@
-[sensitivityOfInterest_B1VFA_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'UK_3T.mat');
+[sensitivityOfInterest_B1VFA_UK, zSpectrum_B1VFA_UK, d_zSpectrum_B1VFA_UK, Prot_B1VFA_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1_VFA', 'UK_3T.mat');
 
-[sensitivityOfInterest_B1_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'UK_3T.mat');
+[sensitivityOfInterest_B1_UK, zSpectrum_B1_UK, d_zSpectrum_B1_UK, Prot_B1_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], 'B1', 'UK_3T.mat');
 
-[sensitivityOfInterest_F_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'UK_3T.mat');
+[sensitivityOfInterest_F_UK, zSpectrum_F_UK, d_zSpectrum_F_UK, Prot_F_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [1 0 0 0 0], 'UK_3T.mat');
 
-[sensitivityOfInterest_kf_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'UK_3T.mat');
+[sensitivityOfInterest_kf_UK, zSpectrum_kf_UK, d_zSpectrum_kf_UK, Prot_kf_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 1 0 0 0], 'UK_3T.mat');
 
-[sensitivityOfInterest_T2f_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'UK_3T.mat');
+[sensitivityOfInterest_T2f_UK, zSpectrum_T2f_UK, d_zSpectrum_T2f_UK, Prot_T2f_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 1 0], 'UK_3T.mat');
 
-[sensitivityOfInterest_T2r_UK, ~,~,~] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'UK_3T.mat');
+[sensitivityOfInterest_T2r_UK, zSpectrum_T2r_UK, d_zSpectrum_T2r_UK, Prot_T2r_UK] = calcSensitivity([0.122 3.97  1/0.9   0.0272 1.096e-05], [0 0 0 0 1], 'UK_3T.mat');
 
 %%
 %
