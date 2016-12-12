@@ -18,6 +18,10 @@ classdef SPGR_Protocol < SeqProtocol
             end
         end
 
+        % Prototypes
+
+        remove(obj, indices);
+
         % Save/Load object
         function [] = save(obj, fileName)
             prot = obj.protocol;
