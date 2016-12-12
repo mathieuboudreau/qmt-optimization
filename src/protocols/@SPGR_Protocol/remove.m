@@ -1,7 +1,7 @@
 function [] = remove(obj, indices)
 %REMOVE Remove sets of angle/offset acquisition points from the protocol.
 %   "indices" must be 1D and of same length as both protocol.Angles and
-%   protocol.Offsets.
+%   protocol.Offsets. Non-zero indicies remove protocol points.
     
     if(~islogical(indices))
        try
