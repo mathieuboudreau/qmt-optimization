@@ -18,7 +18,6 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
         end
 
         % Prototypes
-
         remove(obj, indices);
 
         % Save/Load object
@@ -26,9 +25,7 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
         load(obj, fileName)
 
         % Set/Get methods
+        prot = getProtocol(obj)
 
-        function prot = getProtocol(obj)
-           prot = obj.protocol;
-        end
     end
 end
