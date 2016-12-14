@@ -1,4 +1,4 @@
-classdef SPGR_Protocol < SeqProtocol
+classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     %SPGR_PROTOCOL SPGR qMT Protocol class
     %
     %   Parent class: SeqProtocol
