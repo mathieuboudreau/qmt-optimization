@@ -4,7 +4,6 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     %   Parent class: SeqProtocol
 
     properties (Access = protected)
-        id;
         protocol;
     end
 
@@ -45,13 +44,6 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
         end
 
         % Set/Get methods
-        function [] = setID(obj, idName)
-            obj.id = idName;
-        end
-
-        function idName = getID(obj)
-            idName = obj.id;
-        end
 
         function prot = getProtocol(obj)
            prot = obj.protocol;

@@ -8,7 +8,6 @@ classdef (Abstract = true) SeqProtocol < handle
     %   human redable format for the user.
 
     properties (Abstract = true, Access = protected)
-        id
         protocol
     end
 
@@ -16,8 +15,6 @@ classdef (Abstract = true) SeqProtocol < handle
         save(obj, fileName)
         load(obj, fileName)
 
-        setID(obj, idName)
-        getID(obj)
         getProtocol(obj)
     end
 
