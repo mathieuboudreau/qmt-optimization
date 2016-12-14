@@ -22,18 +22,7 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
         remove(obj, indices);
 
         % Save/Load object
-        function [] = save(obj, fileName)
-            prot = obj.protocol;
-            prot.FileName = fileName;
-
-            try
-                save(fileName, '-mat', '-struct', 'prot');
-            catch ME
-                error(ME.identifier, ME.message)
-            end
-
-            clear prot
-        end
+        save(obj, fileName)
 
         function [] = load(obj, fileName)
             try
