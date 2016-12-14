@@ -23,14 +23,7 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
 
         % Save/Load object
         save(obj, fileName)
-
-        function [] = load(obj, fileName)
-            try
-                obj.protocol = load(fileName, '-mat');
-            catch ME
-                error(ME.identifier, ME.message)
-            end
-        end
+        load(obj, fileName)
 
         % Set/Get methods
 
