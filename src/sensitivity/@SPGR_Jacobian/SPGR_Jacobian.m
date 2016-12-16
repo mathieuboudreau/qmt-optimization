@@ -26,10 +26,6 @@ classdef SPGR_Jacobian < SeqJacobian
 
         end
     end
-    
-    methods (Access = public)
-
-    end
 
 end
 
