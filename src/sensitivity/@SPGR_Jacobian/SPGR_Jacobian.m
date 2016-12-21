@@ -11,20 +11,24 @@ classdef SPGR_Jacobian < SeqJacobian
     properties (Access = protected)
         protocolObj
         tissueParamsObj
+        jacobianMat = [];
     end
 
     methods (Access = public)
         % Constructor
         function obj = SPGR_Jacobian(SPGR_Protocol_Obj, SPGR_Tissue_Obj)
             obj = obj@SeqJacobian(SPGR_Protocol_Obj, SPGR_Tissue_Obj);
-            
+
             assert(isa(SPGR_Protocol_Obj, 'SPGR_Protocol'))
             assert(isa(SPGR_Tissue_Obj, 'SPGR_Tissue'))
-            
+
             obj.protocolObj = SPGR_Protocol_Obj;
             obj.tissueParamsObj = SPGR_Tissue_Obj;
-
         end
+
+        % Get methods
+        jacobianMatrix = getJacobian(obj)
+
     end
 
 end

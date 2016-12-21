@@ -11,6 +11,7 @@ classdef SeqJacobian < handle
     properties (Abstract = true, Access = protected)
         protocolObj
         tissueParamsObj
+        jacobianMat
     end
 
     properties (Constant, Access = public)
