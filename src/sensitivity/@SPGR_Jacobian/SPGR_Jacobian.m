@@ -13,7 +13,7 @@ classdef SPGR_Jacobian < SeqJacobian
         tissueParamsObj
 
         jacobianMat = [];
-        jacobianRemainingRowIndices; % Iterator indices to know which jacobian row to calculate next
+        rowsToDo; % Iterator indices to know which jacobian row to calculate next
         
         derivMapDirection = 'forward';
     end
@@ -32,7 +32,7 @@ classdef SPGR_Jacobian < SeqJacobian
             % Calculate the jacobianRemainingRowIndices attribute for this
             % protocol.
             tmpProt = obj.protocolObj.getProtocol;
-            obj.jacobianRemainingRowIndices = (1:length(tmpProt.Offsets))';
+            obj.rowsToDo = (1:length(tmpProt.Offsets))';
         end
 
         % Get methods
