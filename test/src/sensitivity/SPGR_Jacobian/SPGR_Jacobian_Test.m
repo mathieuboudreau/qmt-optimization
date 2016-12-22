@@ -37,6 +37,28 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
 
          end
 
+         
+         
+        % Static Methods
+        function test_SPGR_Tissue_method_derivMap_returns_expected_values(testCase)
+            
+            assertEqual(testCase, SPGR_Jacobian.derivMap('forward'), 1);
+            assertEqual(testCase, SPGR_Jacobian.derivMap('backward'), -1);
+
+        end
+        
+        function test_SPGR_Tissue_method_derivMap_throws_error_for_bad_case(testCase)
+
+            testError.identifier='No Error';
+            try 
+                SPGR_Jacobian.derivMap('Non-existing case')
+            catch ME
+                testError = ME;
+            end
+
+            assertEqual(testCase, testError.identifier, 'derivMap:incorrectArg');
+
+        end
     end
 
 end

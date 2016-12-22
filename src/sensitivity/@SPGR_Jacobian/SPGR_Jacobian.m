@@ -14,6 +14,8 @@ classdef SPGR_Jacobian < SeqJacobian
 
         jacobianMat = [];
         jacobianRemainingRowIndices; % Iterator indices to know which jacobian row to calculate next
+        
+        derivMapDirection = 'forward';
     end
 
     methods (Access = public)
@@ -35,7 +37,11 @@ classdef SPGR_Jacobian < SeqJacobian
 
         % Get methods
         jacobianMatrix = getJacobian(obj)
+    end
 
+    methods (Static, Access = public)
+        % Mapping methods
+        signVal = derivMap(mapType);
     end
 
 end
