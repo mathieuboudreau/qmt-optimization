@@ -62,7 +62,7 @@ repository: https://github.com/mathieuboudreau/qMTLab_Tab1s/issues
 # Run Test Suite
 
 During development of new features or bug-fixing, it will be preferable to run a test suite relevant to a specific category.
-To so so, run the following command:
+To do so, run the following command:
 
 `result = runTestSuite('Tag')`
 
