@@ -6,7 +6,9 @@ It is an extension of qMTLab, a powerful, open source, scalable, easy to use and
 1) a qMT data simulator
 2) a qMT data fitting and visualization interface
 
-The simulation part allows end users to easily simulate qMT data using the above described methods, evaluate how well these models perform under known parameters input, determine the most appropriate acquisition protocol and evaluate how fitting constraints impact the results. The data fitting part provides a simple interface to import real-world qMT data, fit them using the selected fitting procedure, and visualize the resulting parameters maps.
+qMTLab Tab<sub>1</sub>s extends the functionality to optimize the acquisition protocols of various qMT techniques to minimize
+sensitivity against noise (using Fisher Information minimizations) as well as B<sub>1</sub>-sensitivity for chosen
+parameters-of-interest.
 
 ## Documentation
 
