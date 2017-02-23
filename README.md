@@ -39,9 +39,9 @@ If you have git available on a command-line interface (e.g. Terminal on Mac OSX,
 
 ### Zip Download Instructions
 
-The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tabs/tarball/master).
+The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tab1s/tarball/master).
 
-* Extract the downloaded file to the directory you want to install qMTLab_Tabs.
+* Extract the downloaded file to the directory you want to install qMTLab_Tab1s.
 
 * Rename the folder to *qMTLab_Tab1s*.
 
