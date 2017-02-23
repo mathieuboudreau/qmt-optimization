@@ -1,21 +1,24 @@
 classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Tissue_Test < matlab.unittest.TestCase
 
     properties
+        tmpFolder = 'savedtissues';
         outputTissueFileName = 'savedtissues/tmp.mat';
         demoTissue = [1 2 3 4 5 6];
         demoTissue2 = [3 4 2 5 6 1];
     end
     
     methods (TestClassSetup)
-        if ~exist('savedtissues', 'dir')
-            mkdir savedtissues
+        function createTempFolder(testCase)
+            if(~exist('testCase.tmpFolder', 'dir'))
+                mkdir(testCase.tmpFolder)
+            end
         end
     end
     
     methods (TestClassTeardown)
-        function removeTempFiles(testCase)
-            if(exist(testCase.outputTissueFileName, 'file'))
-                delete(testCase.outputTissueFileName)
+        function removeTempFolder(testCase)
+            if(exist(testCase.tmpFolder, 'dir'))
+                rmdir(testCase.tmpFolder, 's')
             end
         end
     end
