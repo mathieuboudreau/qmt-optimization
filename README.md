@@ -20,16 +20,49 @@ qMTLab was published in Concepts in Magnetic Resonance Part A: [*Quantitative ma
 
 ## Installation
 
-Installing qMTLab Tab<sub>1</sub>s is easy and hassle-free! All you need is a supported version of MATLAB installed, no additional 
+Installing qMTLab Tab<sub>1</sub>s is easy! All you need is a supported version of MATLAB installed, no additional 
 software is required. 
+
+### Command-Line Instructions
+
+If you have git available on a command-line interface (e.g. Terminal on Mac OSX, Git Shell on Windows), the installation can be completed using a few quick commands.
+
+* In the command-line interface, navigate (`cd`) to the directory that you want to install qMTLab_Tab1s.
+
+* Clone the directory:
+
+`git clone https://github.com/mathieuboudreau/qMTLab_Tabs.git`
+
+* Change directory to the cloned repo: `cd qMTLab_Tabs`
+
+* Install the submodule(s): `git submodule update --init`
+
+### Zip Download Instructions
 
 The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tabs/tarball/master).
 
-* Alternatively, you can clone the git repository from GitHub using this link: `https://github.com/mathieuboudreau/qMTLab_Tabs.git` 
+* Extract the downloaded file to the directory you want to install qMTLab_Tabs.
 
-* If you have a GitHub account (free) and wish to contribute to the software, you can go to [https://github.com/neuropoly/qMTLab](https://github.com/neuropoly/qMTLab) and fork the repository to your account. If you make any contribution to the software that you feel should be included in the project, please make a pull request so that we can review your modifications before including them in the project.
+* Rename the folder to *qMTLab_Tab1s*.
 
-Once you have downloaded and extract the *.zip file or cloned the repository, start MATLAB, navigate to the qMTLab folder, and in the Command Window type `qMTLab` and hit enter. After a few seconds of loading, you should be presented with a graphical user interface (GUI) and you're ready to start simulating or processing qMT data!
+* Download the qMTLab submodule (using the current stable commit) [here](https://github.com/mathieuboudreau/qMTLab/tarball/869656fece8596dcb9c2d44b25f72e50ab26ee93)
+
+* Extract the downloaded file to a temporary location - *not the qMTLab_Tab1s repository.*
+
+* Copy or cut the **contents** of the extracted directory into the folder *qMTLab_Tab1s/qMTLab/*
+
+
+### Windows/Mac line endings Git compatibility fix
+
+The code was mostly developed using a Mac OSX system. In my experience, when first using this repo in Windows, Git was throwing `LF will be replaced by CRLF` warnings, due to how Windows and Mac deal differently with line endings.
+
+To resolve this, I suggest you:
+
+*  Delete your installed qMTLab_Tab1s repository
+
+* In the command line, run `git config --global core.autocrlf false`
+
+* Reinstall qMTLab_Tab1s
 
 ## Supported MATLAB versions
 
