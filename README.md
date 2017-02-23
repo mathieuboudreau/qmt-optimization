@@ -23,6 +23,8 @@ qMTLab was published in Concepts in Magnetic Resonance Part A: [*Quantitative ma
 Installing qMTLab Tab<sub>1</sub>s is easy! All you need is a supported version of MATLAB installed, no additional 
 software is required. 
 
+After installation, we strongly recommend that you run all tests in this repository (see Test section below) to ensure correct installation and code compatibility with your operating system and Matlab version.
+
 ### Command-Line Instructions
 
 If you have git available on a command-line interface (e.g. Terminal on Mac OSX, Git Shell on Windows), the installation can be completed using a few quick commands.
@@ -77,7 +79,7 @@ If you experience any compatibility issues, please report them through [GitHub](
 After installing the software, we suggest that the you evaluate all the test cases for the software. If all tests pass, then
 your MATLAB version should be compatible and the software will have completely installed correctly. 
 
-# Run all tests
+### Run all tests
 
 Running all tests is a time consuming and processor-intensive process. On a stock MacBook pro, this can take up to 20 
 minutes. You should only need to do this after a fresh install of the software, after updating your MATLAB version, or if an 
@@ -94,7 +96,7 @@ and execute the following command.
 Any failed test should be resolved prior to starting a workflow. Users are invited to raise the issue on the GitHub
 repository: https://github.com/mathieuboudreau/qMTLab_Tab1s/issues
 
-# Run Test Suite
+### Run Test Suite
 
 During development of new features or bug-fixing, it will be preferable to run a test suite relevant to a specific category.
 To do so, go to the 'test' folder
