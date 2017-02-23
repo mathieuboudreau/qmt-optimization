@@ -7,6 +7,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Tissue_Test < matlab.unittest.TestCa
     end
     
     methods (TestClassSetup)
+        if ~exist('savedtissues', 'dir')
+            mkdir savedtissues
+        end
     end
     
     methods (TestClassTeardown)
