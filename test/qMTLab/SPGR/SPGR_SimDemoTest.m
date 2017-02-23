@@ -1,15 +1,10 @@
 classdef (TestTags = {'SPGR', 'Demo', 'Integration'}) SPGR_SimDemoTest < matlab.unittest.TestCase
 
     properties
-       qmtlabPath
+       qmtlabPath = '../../../qMTLab'
     end
     methods (TestClassSetup)
         function addqMTLabToPath(testCase)
-            parts   = strsplit(pwd, '/');
-            parts = parts(1:(end-3));
-            parts{end+1} = 'qMTLab';
-            testCase.qmtlabPath = strjoin(parts, '/');
-
             addpath(genpath(testCase.qmtlabPath));
         end
     end
