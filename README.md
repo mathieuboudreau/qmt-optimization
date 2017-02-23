@@ -20,7 +20,7 @@ qMTLab was published in Concepts in Magnetic Resonance Part A: [*Quantitative ma
 
 ## Installation
 
-Installing qMTLab Tab<1>s is easy and hassle-free! All you need is a supported version of MATLAB installed, no additional 
+Installing qMTLab Tab<sub>1</sub>s is easy and hassle-free! All you need is a supported version of MATLAB installed, no additional 
 software is required. 
 
 The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tabs/tarball/master).
