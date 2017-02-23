@@ -85,7 +85,7 @@ Running all tests is a time consuming and processor-intensive process. On a stoc
 minutes. You should only need to do this after a fresh install of the software, after updating your MATLAB version, or if an 
 unknown error occurred during your workflow.
 
-To run all tests, go to the 'test' subfolder
+To run all tests, from MATLAB (assuming you are already in the qMTLab_Tab1s directory), go to the 'test' subfolder
 
 `cd test/`
 
