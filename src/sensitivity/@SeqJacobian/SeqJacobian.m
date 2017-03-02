@@ -15,11 +15,6 @@ classdef SeqJacobian < handle
     end
 
     properties (Constant, Access = public)
-        badFirstArgType_id = 'SeqJacobian:missingClass';
-        badFirstArgType_msg = 'First input argument to SeqJacobian subclasses must be an object that has a parent class of type ''SeqProtocol''';
-        
-        badSecondArgType_id = 'TissueParams:missingClass';
-        badSecondArgType_msg = 'Second input argument to SeqJacobian subclasses must be an object that has a parent class of type ''T''';
     end
 
     methods (Access = public)
@@ -29,8 +24,8 @@ classdef SeqJacobian < handle
         % e.g. obj = obj@SeqJacobian(SeqProtocolInstance, TissueParamsInstance);
         
         function obj = SeqJacobian(SeqProtocolInstance, TissueParamsInstance)
-            assert(isa(SeqProtocolInstance, 'SeqProtocol'), SeqJacobian.badFirstArgType_id, SeqJacobian.badFirstArgType_msg)
-            assert(isa(TissueParamsInstance, 'TissueParams'), SeqJacobian.badSecondArgType_id, SeqJacobian.badSecondArgType_msg)
+            assert(isa(SeqProtocolInstance, 'SeqProtocol'), 'SeqJacobian:missingClass', 'First input argument to SeqJacobian subclasses must be an object that has a parent class of type ''SeqProtocol''')
+            assert(isa(TissueParamsInstance, 'TissueParams'), 'TissueParams:missingClass', 'Second input argument to SeqJacobian subclasses must be an object that has a parent class of type ''TissueParams''')
         end
     end
     
