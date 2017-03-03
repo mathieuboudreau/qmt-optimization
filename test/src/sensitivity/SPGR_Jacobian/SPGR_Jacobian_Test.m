@@ -22,7 +22,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
                  testError = ME;
              end
              
-             assertEqual(testCase, testError.identifier, SeqJacobian.badFirstArgType_id);
+             assertEqual(testCase, testError.identifier, 'SeqJacobian:missingClass');
 
              % Bad second argument parent type
              clear testError
@@ -33,7 +33,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
                  testError = ME;
              end
 
-             assertEqual(testCase, testError.identifier, SeqJacobian.badSecondArgType_id);
+             assertEqual(testCase, testError.identifier, 'TissueParams:missingClass');
 
          end
 
