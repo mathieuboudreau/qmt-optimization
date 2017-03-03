@@ -46,6 +46,14 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Tissue_Test < matlab.unittest.TestCa
             end
         end 
         
+        function test_SPGR_Tissue_getParameter_returns_same_values_for_cell(testCase)
+            tmp_tissue_obj = SPGR_Tissue(testCase.demoTissue);
+            
+            for ii = 1:length(SPGR_Tissue.paramsKeys)
+                assertEqual(testCase, tmp_tissue_obj.getParameter(SPGR_Tissue.paramsKeys(ii)), testCase.demoTissue(ii));
+            end
+        end 
+        
         function test_SPGR_Tissue_save_method_stores_a_mat_file_and_filename(testCase)
             
             tmp_tissue_obj = SPGR_Tissue(testCase.demoTissue);
