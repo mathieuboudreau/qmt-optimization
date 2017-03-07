@@ -14,8 +14,12 @@ classdef SPGR_Jacobian < SeqJacobian
 
         jacobianMat = [];
         rowsToDo; % Iterator indices to know which jacobian row to calculate next
-        
+
         derivMapDirection = 'forward';
+    end
+
+    properties (Access = private)
+       deltaPerc = 10^(-2); % Percentage difference for derivatives calculations
     end
 
     methods (Access = public)
@@ -28,7 +32,7 @@ classdef SPGR_Jacobian < SeqJacobian
 
             obj.protocolObj = SPGR_Protocol_Obj;
             obj.tissueParamsObj = SPGR_Tissue_Obj;
-            
+
             % Calculate the jacobianRemainingRowIndices attribute for this
             % protocol.
             tmpProt = obj.protocolObj.getProtocol;
@@ -37,6 +41,9 @@ classdef SPGR_Jacobian < SeqJacobian
 
         % Get methods
         jacobianMatrix = getJacobian(obj)
+
+        % Generate methods
+        paramStruct = genParamStruct(obj)
     end
 
     methods (Static, Access = public)

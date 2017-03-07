@@ -3,6 +3,8 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
     properties
         demoProtocol = 'savedprotocols/demo_SPGR_Protocol_for_UnitTest.mat';
         demoTissue = [1 2 3 4 5 6];
+        
+        expected_genParamStruct_Fields={'keys','values','differentials'}
     end
     
     methods (TestClassSetup)
@@ -59,6 +61,55 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             assertEqual(testCase, testError.identifier, 'derivMap:incorrectArg');
 
         end
+        
+        function test_genParamStruct_returns_struct_with_correctly_named_fields(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+
+            testParamStruct = testObject.genParamStruct();
+
+            for ii=1:length(testCase.expected_genParamStruct_Fields)
+                expectedField = testCase.expected_genParamStruct_Fields{ii};
+
+                assert(isfield(testParamStruct, expectedField))
+            end
+        end
+
+        function test_genParamStruct_contains_expected_keys(testCase)
+            tissueObject = SPGR_Tissue(testCase.demoTissue);
+            
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
+            testParamStruct = testObject.genParamStruct();
+
+            for ii=1:length(tissueObject.paramsKeys)
+                assert(any(ismember(testParamStruct.keys,tissueObject.paramsKeys(ii))))
+            end
+        end
+
+        function test_genParamStruct_contains_expected_values(testCase)
+            tissueObject = SPGR_Tissue(testCase.demoTissue);
+
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
+            testParamStruct = testObject.genParamStruct();
+
+            for ii=1:length(tissueObject.paramsKeys)
+                keyVal = cell2mat(tissueObject.paramsKeys(ii));
+                assertEqual(testCase, testParamStruct.values(keyVal),tissueObject.getParameter(keyVal))
+            end
+        end
+
+        function test_genParamStruct_contains_expected_differentials(testCase)
+            tissueObject = SPGR_Tissue(testCase.demoTissue);
+
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
+            testParamStruct = testObject.genParamStruct();
+            differentialFactor = 10^(-2)./100; % 10^-2 % should be default.
+
+            for ii=1:length(tissueObject.paramsKeys)
+                keyVal = cell2mat(tissueObject.paramsKeys(ii));
+                assertEqual(testCase, testParamStruct.differentials(keyVal), tissueObject.getParameter(keyVal).*differentialFactor)
+            end
+        end
+        
     end
 
 end
