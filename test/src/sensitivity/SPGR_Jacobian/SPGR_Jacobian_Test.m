@@ -62,6 +62,13 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
 
         end
         
+        % Get methods
+        function test_getJacobian_returns_a_type_double_variable(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+            assertInstanceOf(testCase, testObject.getJacobian, 'double');
+        end
+        
+        % Generate methods
         function test_genParamStruct_returns_struct_with_correctly_named_fields(testCase)
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
 
