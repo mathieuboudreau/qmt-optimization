@@ -12,7 +12,7 @@ classdef SPGR_Jacobian < SeqJacobian
         protocolObj
         tissueParamsObj
 
-        jacobianMat = [];
+        jacobianStruct = struct('jacobianMatrix',[]);
         rowsToDo; % Iterator indices to know which jacobian row to calculate next
 
         derivMapDirection = 'forward';
