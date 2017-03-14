@@ -16,6 +16,7 @@ classdef (Abstract = true) SeqProtocol < handle
         load(obj, fileName)
 
         getProtocol(obj)
+        getNumberOfMeas(obj);
     end
 
 end

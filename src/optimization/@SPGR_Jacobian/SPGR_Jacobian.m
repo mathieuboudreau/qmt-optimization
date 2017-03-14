@@ -35,8 +35,7 @@ classdef SPGR_Jacobian < SeqJacobian
 
             % Calculate the jacobianRemainingRowIndices attribute for this
             % protocol.
-            tmpProt = obj.protocolObj.getProtocol;
-            obj.rowsToDo = (1:length(tmpProt.Offsets))';
+            obj.rowsToDo = (1:obj.protocolObj.getNumberOfMeas)';
         end
 
         % Get methods

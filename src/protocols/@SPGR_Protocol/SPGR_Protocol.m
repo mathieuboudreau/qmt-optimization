@@ -26,6 +26,8 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
 
         % Set/Get methods
         prot = getProtocol(obj)
+        totalNumOfMeas = getNumberOfMeas(obj);
+
 
     end
 end

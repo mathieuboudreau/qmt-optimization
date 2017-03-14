@@ -26,7 +26,8 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Protocol_Test < matlab.unittest.Test
         function test_SPGR_Protocol_parent_class_instance(testCase)
             assertInstanceOf(testCase, SPGR_Protocol(testCase.demoProtocol), 'SeqProtocol');
         end
-
+        
+        % Get Methods
         function test_SPGR_Protocol_getProtocol_returns_same_struct_as_input_mat(testCase)
             matProtocol_struct = load(testCase.demoProtocol);
 
@@ -36,6 +37,16 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Protocol_Test < matlab.unittest.Test
 
         end
 
+        function test_SPGR_Protocol_getNumberOfMeas_returns_length_of_offsets(testCase)
+            matProtocol_struct = load(testCase.demoProtocol);
+
+            tmp_prot_obj = SPGR_Protocol(testCase.demoProtocol);
+
+            assertEqual(testCase, length(matProtocol_struct.Offsets), tmp_prot_obj.getNumberOfMeas);
+
+        end
+        
+        
          function test_SPGR_Protocol_save_method_stores_a_mat_file_and_filename(testCase)
 
             tmp_prot_obj = SPGR_Protocol(testCase.demoProtocol);
