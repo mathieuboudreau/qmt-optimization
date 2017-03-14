@@ -117,6 +117,49 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             end
         end
         
+        % Methods for Jacobian computation
+        function test_compute_returns_error_for_unkown_computOpts_mode(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+            computeOpts.mode = 'UnKn0wnM0dE';
+            
+            % Preload testError for test
+            testError.identifier='No Error';
+            try 
+                testObject.compute(computeOpts);
+            catch ME
+                testError = ME;
+            end
+            
+            assertEqual(testCase, testError.identifier, 'SPGR_Jacobian:unknownComputeMode');
+        end
+
+        function test_compute_throws_warning_when_computeOpts_mode_is_Completed(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+            computeOpts.mode = 'Completed';
+            
+            % Reset the last warning to a new string
+            warning('Temporary warning for unit test of SPGR_Jacobian.compute')
+
+            testObject.compute(computeOpts);
+
+            assertEqual(testCase, lastwarn, 'computeOpts.mode flag was set to Completed, obj.compute returned without further computation of Jacobian.');
+        end
+
+
+        function test_compute_compOpts_and_jacStruct_unchanged_for_Completed(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+            computeOpts.mode = 'Completed';
+            
+            prev_computeOpts = computeOpts;
+            prev_jacobianMat = testObject.getJacobian();
+            
+            computeOpts = testObject.compute(computeOpts);
+
+            assertEqual(testCase,              computeOpts, prev_computeOpts);            
+            assertEqual(testCase, testObject.getJacobian(), prev_jacobianMat);
+
+        end
+
     end
 
 end
