@@ -1,4 +1,4 @@
-function compuOpts = compute(obj, compuOpts)
+function computeOpts = compute(obj, computeOpts)
 %COMPUTE Computes the Jacobian matrix for the objects acquisition protocol
 % and tissue parameters.
 

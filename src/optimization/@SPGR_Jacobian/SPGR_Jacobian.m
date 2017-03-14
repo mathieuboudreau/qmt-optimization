@@ -46,7 +46,7 @@ classdef SPGR_Jacobian < SeqJacobian
         paramStruct = genParamStruct(obj)
 
         % Methods for Jacobian computation
-        compuOpts = compute(obj, compuOpts)
+        computeOpts = compute(obj, computeOpts)
     end
 
     methods (Static, Access = public)
