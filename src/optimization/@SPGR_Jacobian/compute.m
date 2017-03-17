@@ -8,24 +8,17 @@ function computeOpts = compute(obj, computeOpts)
 %             'Resume', 'New', and 'Completed'
 
 %% Pre-processing
-% - If compuOpts.mode == 'Resume' flag, verify that jacobianStruct.jacobianMatrix is not empty. 
-%   - If it is *not empty* resume computation immediately.
-%   - If it is *empty*, call the obj.clean method to reset jacobianStruct.
-%       - Set empty jacobianStruct.jacobianMatrix
-%       - Set jacobianStruct.status to 'incomplete'
-%       - Set jacobianStruct.completedLines to logical 1-D array of zeros.
-%   - Call the obj.setup(compuOpts.paramsOfInterest)
 %
-% - If compuOpts.mode == 'New'
-%   - Call the obj.clean method to reset jacobianStruct.
-%   - Call the obj.setup(compuOpts.paramsOfInterest)
-%
-% - If compuOpts.mode == 'Completed', return immediately.
-
 
 switch computeOpts.mode
     case 'Resume'
+        if isempty(obj.jacobianStruct.jacobianMatrix)
+            clean(obj)
+            setup(obj, computeOpts)            
+        end
     case 'New'
+        clean(obj)
+        setup(obj, computeOpts)
     case 'Completed'
         warning('computeOpts.mode flag was set to Completed, obj.compute returned without further computation of Jacobian.')
         return
@@ -48,4 +41,29 @@ end
 %% Store Jacobian rows in object
 %
 
+
+%% Update computeOpts
+%
+
+if any(isnan(obj.jacobianStruct.jacobianMatrix(:))) % Uncompleted lines have nan row elements
+    computeOpts.mode = 'Resume';
+else                                                % Completed lines have nan row elements
+    computeOpts.mode = 'Completed';
+end
+
+end
+
+
+%% Method helper functions
+%
+
+function clean(obj)
+    obj.jacobianStruct = struct('jacobianMatrix',[]);
+end
+
+function setup(obj, computeOpts)
+    obj.jacobianStruct.jacobianMatrix = nan(obj.protocolObj.getNumberOfMeas, length(computeOpts.paramsOfInterest));  %Important to keep uncompleted lines nans, to properly update the mode at the end of a loop.
+
+    obj.jacobianStruct.status = 'Incomplete';
+    obj.jacobianStruct.completedLines = zeros(1, obj.protocolObj.getNumberOfMeas);
 end

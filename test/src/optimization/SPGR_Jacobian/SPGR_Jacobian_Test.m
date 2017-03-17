@@ -160,6 +160,42 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
 
         end
 
+        function test_compute_New_returns_Resume_or_Completed(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+ 
+            computeOpts.mode = 'New';
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+
+            computeOpts = testObject.compute(computeOpts);
+
+            assertTrue(testCase, any(ismember({'Resume', 'Complete'}, computeOpts.mode)));            
+        end
+
+        function test_compute_Resume_returns_Resume_or_Completed(testCase)
+            testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+ 
+            computeOpts.mode = 'Resume';
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+
+            computeOpts = testObject.compute(computeOpts);
+
+            assertTrue(testCase, any(ismember({'Resume', 'Complete'}, computeOpts.mode)));            
+        end
+
+        function test_compute_New_sets_up_a_jacobian_template_with_proper_dims(testCase)
+           protocolObj = SPGR_Protocol(testCase.demoProtocol);
+            
+           testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
+
+           computeOpts.mode = 'New';
+           computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+
+           computeOpts = testObject.compute(computeOpts);
+
+           expectedJacobianSize = [protocolObj.getNumberOfMeas length(computeOpts.paramsOfInterest)];
+           assertEqual(testCase, size(testObject.getJacobian), expectedJacobianSize);            
+       end
+        
     end
 
 end
