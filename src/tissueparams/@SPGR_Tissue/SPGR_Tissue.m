@@ -13,6 +13,7 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
     
     properties (Constant, Access = public)
         paramsKeys = {'F', 'kf', 'R1f', 'R1r', 'T2f', 'T2r'};
+        fitParamsKeys = {'F', 'kf', 'R1f', 'T2f', 'T2r'};
     end
     
     methods (Access = public)
@@ -30,7 +31,7 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
         save(obj, fileName)
         load(obj, fileName)
 
-        paramsArray = getParams(obj)
+        paramsArray = getParams(obj, tissueKeys)
         paramValue = getParameter(obj, paramKey)
     end
 

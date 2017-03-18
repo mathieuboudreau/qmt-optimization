@@ -32,10 +32,17 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Tissue_Test < matlab.unittest.TestCa
             assertInstanceOf(testCase, SPGR_Tissue(testCase.demoTissue), 'TissueParams');
         end
         
+        % Get methods
         function test_SPGR_Tissue_getParams_returns_same_array_as_input_array(testCase)
             tmp_tissue_obj = SPGR_Tissue(testCase.demoTissue);
             
             assertEqual(testCase, testCase.demoTissue, tmp_tissue_obj.getParams);
+        end
+        
+        function test_SPGR_Tissue_getParams_with_arg(testCase)
+            tmp_tissue_obj = SPGR_Tissue(testCase.demoTissue);
+            
+            assertEqual(testCase, testCase.demoTissue([1,3,5]), tmp_tissue_obj.getParams(tmp_tissue_obj.paramsKeys([1,3,5])));
         end
         
         function test_SPGR_Tissue_getParameter_returns_same_values_as_expected(testCase)
