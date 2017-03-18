@@ -6,6 +6,10 @@ function computeOpts = compute(obj, computeOpts)
 %       --Fields--
 %       mode: String to flag the mode of the computation. Valid flags:
 %             'Resume', 'New', and 'Completed'
+%       paramsOfInterest: Cell array of strings. Each element must be one
+%              of the TissueParams keys that the Jacobian object was
+%              initialized with.
+%       lineBuffer: Number of Jacobian rows to be calculated.
 
 %% Pre-processing
 %
@@ -28,6 +32,13 @@ end
 
 %% Get array of row indices for this buffer calculation
 %
+
+remainingRows = getRemainingRows(obj);
+if remainingRows < computeOpts.lineBuffer
+    rowsToDo = remainingRows;
+else
+    rowsToDo = remainingRows(1:computeOpts.lineBuffer);
+end
 
 %% Prepare/format variables required for fitting computation
 %

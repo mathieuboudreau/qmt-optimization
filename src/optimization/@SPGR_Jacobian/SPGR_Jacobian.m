@@ -13,7 +13,6 @@ classdef SPGR_Jacobian < SeqJacobian
         tissueParamsObj
 
         jacobianStruct = struct('jacobianMatrix',[]);
-        rowsToDo; % Iterator indices to know which jacobian row to calculate next
 
         derivMapDirection = 'forward';
     end
@@ -33,13 +32,11 @@ classdef SPGR_Jacobian < SeqJacobian
             obj.protocolObj = SPGR_Protocol_Obj;
             obj.tissueParamsObj = SPGR_Tissue_Obj;
 
-            % Calculate the jacobianRemainingRowIndices attribute for this
-            % protocol.
-            obj.rowsToDo = (1:obj.protocolObj.getNumberOfMeas)';
         end
 
         % Get methods
         jacobianMatrix = getJacobian(obj)
+        remainingRows = getRemainingRows(obj)
 
         % Generate methods
         paramStruct = genParamStruct(obj)

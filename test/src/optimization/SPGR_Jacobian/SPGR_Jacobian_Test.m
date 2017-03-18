@@ -165,6 +165,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
  
             computeOpts.mode = 'New';
             computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+            computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
 
@@ -176,6 +177,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
  
             computeOpts.mode = 'Resume';
             computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+            computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
 
@@ -189,11 +191,24 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
 
            computeOpts.mode = 'New';
            computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+           computeOpts.lineBuffer = 2;
 
            computeOpts = testObject.compute(computeOpts);
 
            expectedJacobianSize = [protocolObj.getNumberOfMeas length(computeOpts.paramsOfInterest)];
            assertEqual(testCase, size(testObject.getJacobian), expectedJacobianSize);            
+        end
+       
+        function test_compute_lineBuffer_larger_than_rem_array_doesnt_error(testCase)
+           protocolObj = SPGR_Protocol(testCase.demoProtocol);
+            
+           testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
+
+           computeOpts.mode = 'New';
+           computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+           computeOpts.lineBuffer = protocolObj.getNumberOfMeas + 1;
+
+           testObject.compute(computeOpts); % Can't currently think of an assert for this test, but if this call throws an error, the test will fail as intended.       
        end
         
     end

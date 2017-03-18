@@ -30,7 +30,7 @@ classdef SeqJacobian < handle
     end
     
     methods (Abstract = true, Access = public)
-
+        remainingRows = getRemainingRows(obj)
     end
 
 end
