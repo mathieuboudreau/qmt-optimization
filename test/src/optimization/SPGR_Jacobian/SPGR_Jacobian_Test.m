@@ -5,12 +5,21 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
         demoTissue = [1 2 3 4 5 6];
         
         expected_genTissueJacStruct_Fields={'keys','value','differential'}
+        
+        p = []; % parpool instance
     end
     
     methods (TestClassSetup)
+        function initParPool(testCase)
+           delete(gcp('nocreate'))
+           testCase.p = parpool(feature('numCores'));
+        end
     end
     
     methods (TestClassTeardown)
+        function delParPool(testCase)
+            delete(testCase.p)
+        end
     end
     
     methods (Test)

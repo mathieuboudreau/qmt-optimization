@@ -50,6 +50,10 @@ tissueJacStruct = obj.genTissueJacStruct();
 %% Initialize parrallel pool
 %
 
+if ~ParPool.checkExistingSession()
+    ParPool.instance();
+end
+
 %% Compute Jacobian rows
 %
 
