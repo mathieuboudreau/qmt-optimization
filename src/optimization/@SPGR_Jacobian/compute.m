@@ -43,6 +43,10 @@ end
 %% Prepare/format variables required for fitting computation
 %
 
+% Get the full protocol that the object was initialized with
+fullProtocol = obj.protocolObj.getProtocol;
+tissueJacStruct = obj.genTissueJacStruct();
+
 %% Initialize parrallel pool
 %
 

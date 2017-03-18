@@ -39,7 +39,7 @@ classdef SPGR_Jacobian < SeqJacobian
         remainingRows = getRemainingRows(obj)
 
         % Generate methods
-        paramStruct = genParamStruct(obj)
+        tissueJacStruct = genTissueJacStruct(obj)
 
         % Methods for Jacobian computation
         computeOpts = compute(obj, computeOpts)
