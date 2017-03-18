@@ -1,4 +1,4 @@
-function [FileName, FileType, Opt, Param] = generateSPGRSimParam(filename, qMT5Params, noiseFlag)
+function Sim = generateSPGRSimParam(filename, qMT5Params, noiseFlag)
 %generateSPGRSimParam Generates parameters required to save a SimParam file
 %                     in the formate matching qMTLab's.
 %
@@ -6,16 +6,16 @@ function [FileName, FileType, Opt, Param] = generateSPGRSimParam(filename, qMT5P
 %   filename  : string for output filename. Do not include .mat extention
 %   noiseFlag : 0 - no noise, 1 - default noise
 
-    FileName         = [filename,'.mat'];
-    FileType         = 'SimParam';
+    Sim.FileName         = [filename,'.mat'];
+    Sim.FileType         = 'SimParam';
 
     if noiseFlag
-            Opt      = genNoiseOpt();
+            Sim.Opt      = genNoiseOpt();
     elseif ~noiseFlag
-            Opt      = genNoiselessOpt();
+            Sim.Opt      = genNoiselessOpt();
     end
 
-    Param            = genParam(qMT5Params);
+    Sim.Param            = genParam(qMT5Params);
 
 end
 
@@ -42,7 +42,7 @@ function [Opt] = genNoiselessOpt()
     Opt.AddNoise = 0;       % 0 or 1
     Opt.SNR      = 0;       % SNR level
     Opt.SScheck  = 1;       % 0 or 1, check steady state
-    Opt.SStol    = 1.0e-04; % Steady state tolerance
+    Opt.SStol    = 1.0e-05; % Steady state tolerance
     Opt.Reset    = 0;       % Reset M to equalibrium?
 end
 
@@ -51,6 +51,6 @@ function [Opt] = genNoiseOpt()
     Opt.AddNoise = 1;       % 0 or 1
     Opt.SNR      = 200;     % SNR level
     Opt.SScheck  = 1;       % 0 or 1, check steady state
-    Opt.SStol    = 1.0e-04; % Steady state tolerance
+    Opt.SStol    = 1.0e-05; % Steady state tolerance
     Opt.Reset    = 0;       % Reset M to equalibrium?
 end

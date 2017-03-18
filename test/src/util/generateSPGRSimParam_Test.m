@@ -21,6 +21,8 @@ classdef (TestTags = {'SPGR', 'Unit'}) generateSPGRSimParam_Test < matlab.unitte
             testCase.defaultOpt      = Opt;
             testCase.defaultParam    = Param;
             clear FileName, clear FileType, clear Opt, clear Param;
+            
+            testCase.defaultOpt.SStol = 1.0e-05; % qMTLab demo default if 10^-4, but I wanted it to be set to this value in generateSPGRSimParam by default.
         end
     end
 
@@ -38,12 +40,12 @@ classdef (TestTags = {'SPGR', 'Unit'}) generateSPGRSimParam_Test < matlab.unitte
             defaultqMT5Params = [0.1 3  1   0.04 1e-05];
             noiseFlag         = 1; % Default file has noise
 
-            [outFileName, outFileType, outOpt, outParam] = generateSPGRSimParam(filename, defaultqMT5Params, noiseFlag);
+            outSim = generateSPGRSimParam(filename, defaultqMT5Params, noiseFlag);
 
-            testCase.verifyEqual(outFileName, testCase.defaultFileName)
-            testCase.verifyEqual(outFileType, testCase.defaultFileType)
-            testCase.verifyEqual(outOpt     , testCase.defaultOpt)
-            testCase.verifyEqual(outParam   , testCase.defaultParam)
+            testCase.verifyEqual(outSim.FileName, testCase.defaultFileName)
+            testCase.verifyEqual(outSim.FileType, testCase.defaultFileType)
+            testCase.verifyEqual(outSim.Opt     , testCase.defaultOpt)
+            testCase.verifyEqual(outSim.Param   , testCase.defaultParam)
         end
     end
 

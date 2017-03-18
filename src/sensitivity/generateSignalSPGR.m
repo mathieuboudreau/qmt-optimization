@@ -27,9 +27,8 @@ function [zSpectrum, Prot] = generateSignalSPGR(qMT5Params, protocolFile, vararg
         noiseFlag = 0; % Noiseless
     end
 
-    [Sim.FileName, Sim.FileType, Sim.Opt, Sim.Param] = generateSPGRSimParam(filename,   ...
-                                                                            qMT5Params, ...
-                                                                            noiseFlag);
+    Sim = generateSPGRSimParam(filename, qMT5Params, noiseFlag);
+
     Sim.Opt.SStol = 1e-5;
     Prot   = load(protocolFile);   % load default protocol
 
