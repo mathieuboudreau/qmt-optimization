@@ -57,9 +57,21 @@ end
 %% Compute Jacobian rows
 %
 
+tmp = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
+numParams = length(computeOpts.paramsOfInterest);
+
+parfor rowIndex = 1:length(rowsToDo)
+    tmp(rowIndex, :) = ones(1, numParams)
+end
+
 %% Store Jacobian rows in object
 %
 
+if any(any(isnan(tmp)))
+    error('SeqJacobian:NaNValue', 'At least one of the calculate Jacobian values is NaN.')
+else
+    obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
+end
 
 %% Update computeOpts
 %
