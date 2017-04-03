@@ -61,7 +61,16 @@ tmp = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
 numParams = length(computeOpts.paramsOfInterest);
 
 parfor rowIndex = 1:length(rowsToDo)
+    % Setup protocol
     curProtPoint = obj.getProtocolPoint(rowIndex);
+
+    % Setup for M0 calculation
+    tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
+    tmp_tissueSim = generateSPGRSimParam('tmp.mat', tmp_tissueParams, 0);
+
+    % Simulate the signal without varying any of the parameters
+    [tmp_signal(rowIndex,1), ~] = SPGR_sim(tmp_tissueSim, curProtPoint);
+    
     tmp(rowIndex, :) = ones(1, numParams);
 end
 
@@ -71,6 +80,7 @@ end
 if any(any(isnan(tmp)))
     error('SeqJacobian:NaNValue', 'At least one of the calculate Jacobian values is NaN.')
 else
+    obj.jacobianStruct.signal(rowsToDo,1) = tmp_signal;
     obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
 end
 
