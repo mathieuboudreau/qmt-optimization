@@ -37,6 +37,7 @@ classdef SPGR_Jacobian < SeqJacobian
         % Get methods
         jacobianMatrix = getJacobian(obj)
         remainingRows = getRemainingRows(obj)
+        protPoint = getProtocolPoint(obj, rowIndex)
 
         % Generate methods
         tissueJacStruct = genTissueJacStruct(obj)

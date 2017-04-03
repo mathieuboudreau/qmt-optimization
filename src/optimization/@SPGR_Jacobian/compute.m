@@ -61,7 +61,8 @@ tmp = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
 numParams = length(computeOpts.paramsOfInterest);
 
 parfor rowIndex = 1:length(rowsToDo)
-    tmp(rowIndex, :) = ones(1, numParams)
+    curProtPoint = obj.getProtocolPoint(rowIndex);
+    tmp(rowIndex, :) = ones(1, numParams);
 end
 
 %% Store Jacobian rows in object
