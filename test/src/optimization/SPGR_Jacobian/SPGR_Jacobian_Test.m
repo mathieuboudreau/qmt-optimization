@@ -2,7 +2,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
 
     properties
         demoProtocol = 'savedprotocols/demo_SPGR_Protocol_for_UnitTest.mat';
-        demoTissue = [1 2 3 4 5 6];
+        demoTissue = [0.122 3.97 1.1111 1 0.0272 1.0960e-05];
         
         expected_genTissueJacStruct_Fields={'keys','value','differential'}
         
