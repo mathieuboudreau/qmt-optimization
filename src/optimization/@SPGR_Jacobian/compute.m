@@ -58,7 +58,10 @@ end
 %
 
 tmp = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
+d_tmp_signal = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
+
 numParams = length(computeOpts.paramsOfInterest);
+derivSign = obj.derivMap(obj.derivMapDirection);
 
 parfor rowIndex = 1:length(rowsToDo)
     % Setup protocol
@@ -71,6 +74,15 @@ parfor rowIndex = 1:length(rowsToDo)
     % Simulate the signal without varying any of the parameters
     [tmp_signal(rowIndex,1), ~] = SPGR_sim(tmp_tissueSim, curProtPoint);
     
+    for tissueIndex = 1:numParams
+        d_tmp_tissueParams = tmp_tissueParams;
+        d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
+        
+        d_tmp_tissueSim = generateSPGRSimParam('tmp.mat', d_tmp_tissueParams, 0);
+        
+        [d_tmp_signal(rowIndex, tissueIndex), ~] = SPGR_sim(d_tmp_tissueSim, curProtPoint);
+    end
+    
     tmp(rowIndex, :) = ones(1, numParams);
 end
 
@@ -80,7 +92,8 @@ end
 if any(any(isnan(tmp)))
     error('SeqJacobian:NaNValue', 'At least one of the calculate Jacobian values is NaN.')
 else
-    obj.jacobianStruct.signal(rowsToDo,1) = tmp_signal;
+    obj.jacobianStruct.signal(rowsToDo',1) = tmp_signal;
+    obj.jacobianStruct.d_signal(rowsToDo',:) = d_tmp_signal;
     obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
 end
 
