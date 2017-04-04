@@ -75,9 +75,7 @@ parfor rowIndex = 1:length(rowsToDo)
         d_tmp_tissueParams = tmp_tissueParams;
         d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
         
-        d_tmp_tissueSim = generateSPGRSimParam('tmp.mat', d_tmp_tissueParams, 0);
-        
-        [d_tmp_signal(rowIndex, tissueIndex), ~] = SPGR_sim(d_tmp_tissueSim, curProtPoint);
+        d_tmp_signal(rowIndex, tissueIndex) = obj.simulateSignal(curProtPoint, d_tmp_tissueParams);
     end
 end
 
