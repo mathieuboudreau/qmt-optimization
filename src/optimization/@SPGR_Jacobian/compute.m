@@ -56,8 +56,7 @@ end
 
 %% Compute Jacobian rows
 %
-
-tmp = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
+tmp_signal = nan(length(rowsToDo), 1);
 d_tmp_signal = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
 
 numParams = length(computeOpts.paramsOfInterest);
@@ -82,19 +81,17 @@ parfor rowIndex = 1:length(rowsToDo)
         
         [d_tmp_signal(rowIndex, tissueIndex), ~] = SPGR_sim(d_tmp_tissueSim, curProtPoint);
     end
-    
-    tmp(rowIndex, :) = ones(1, numParams);
 end
 
 %% Store Jacobian rows in object
 %
 
-if any(any(isnan(tmp)))
+if or(any(any(isnan(tmp_signal))), any(any(isnan(d_tmp_signal))))
     error('SeqJacobian:NaNValue', 'At least one of the calculate Jacobian values is NaN.')
 else
     obj.jacobianStruct.signal(rowsToDo',1) = tmp_signal;
     obj.jacobianStruct.d_signal(rowsToDo',:) = d_tmp_signal;
-    obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
+    %obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
 end
 
 %% Update computeOpts
