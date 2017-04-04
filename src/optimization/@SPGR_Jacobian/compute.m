@@ -64,7 +64,7 @@ derivSign = obj.derivMap(obj.derivMapDirection);
 
 parfor rowIndex = 1:length(rowsToDo)
     % Setup protocol
-    curProtPoint = obj.getProtocolPoint(rowIndex);
+    curProtPoint = obj.getProtocolPoint(rowsToDo(rowIndex));
 
     % Setup for M0 calculation
     tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
