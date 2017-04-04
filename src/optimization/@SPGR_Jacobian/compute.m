@@ -68,11 +68,9 @@ parfor rowIndex = 1:length(rowsToDo)
 
     % Setup for M0 calculation
     tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
-    tmp_tissueSim = generateSPGRSimParam('tmp.mat', tmp_tissueParams, 0);
 
-    % Simulate the signal without varying any of the parameters
-    [tmp_signal(rowIndex,1), ~] = SPGR_sim(tmp_tissueSim, curProtPoint);
-    
+    tmp_signal(rowIndex,1) = obj.simulateSignal(curProtPoint, tmp_tissueParams);
+
     for tissueIndex = 1:numParams
         d_tmp_tissueParams = tmp_tissueParams;
         d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
