@@ -91,7 +91,12 @@ if or(any(any(isnan(tmp_signal))), any(any(isnan(d_tmp_signal))))
 else
     obj.jacobianStruct.signal(rowsToDo',1) = tmp_signal;
     obj.jacobianStruct.d_signal(rowsToDo',:) = d_tmp_signal;
-    %obj.jacobianStruct.jacobianMatrix(rowsToDo', :) = tmp;
+    
+    for tissueIndex = 1:numParams
+        obj.jacobianStruct.jacobianMatrix(rowsToDo', tissueIndex) = (obj.jacobianStruct.d_signal(rowsToDo', tissueIndex)  - obj.jacobianStruct.signal(rowsToDo')) ...
+                                                                                                                 ./                                               ...
+                                                                                  tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
+    end
 end
 
 %% Update computeOpts
