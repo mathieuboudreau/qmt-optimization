@@ -44,7 +44,6 @@ end
 %
 
 % Get the full protocol that the object was initialized with
-fullProtocol = obj.protocolObj.getProtocol;
 tissueJacStruct = obj.genTissueJacStruct();
 
 %% Initialize parrallel pool
