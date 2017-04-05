@@ -60,7 +60,6 @@ tmp_signal = nan(length(rowsToDo), 1);
 d_tmp_signal = nan(length(rowsToDo), length(computeOpts.paramsOfInterest));
 
 numParams = length(computeOpts.paramsOfInterest);
-derivSign = obj.derivMap(obj.derivMapDirection);
 
 parfor rowIndex = 1:length(rowsToDo)
     % Setup protocol
@@ -72,9 +71,10 @@ parfor rowIndex = 1:length(rowsToDo)
     tmp_signal(rowIndex,1) = obj.simulateSignal(curProtPoint, tmp_tissueParams);
 
     for tissueIndex = 1:numParams
-        d_tmp_tissueParams = tmp_tissueParams;
-        d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
         
+        % Generate tissue parameters for the partial "derivative" relative to the tissue of interest for this index. 
+        d_tmp_tissueParams = genDeltaTissueParams(obj, tissueJacStruct, tmp_tissueParams, tissueIndex);
+
         d_tmp_signal(rowIndex, tissueIndex) = obj.simulateSignal(curProtPoint, d_tmp_tissueParams);
     end
 end
