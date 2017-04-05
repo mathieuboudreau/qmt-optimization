@@ -65,17 +65,19 @@ parfor rowIndex = 1:length(rowsToDo)
     % Setup protocol
     curProtPoint = obj.getProtocolPoint(rowsToDo(rowIndex));
 
-    % Setup for M0 calculation
+    % Setup tissue params
     tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
 
     tmp_signal(rowIndex,1) = obj.simulateSignal(curProtPoint, tmp_tissueParams);
 
     for tissueIndex = 1:numParams
-        
-        % Generate tissue parameters for the partial "derivative" relative to the tissue of interest for this index. 
+        % If applicable, generate protocol point for the partial "derivative" relative to a "tissueIndex" (note: change name) that may be a measurement correction param (e.g. B1, B0). 
+        d_curProtPoint = genDeltaProtPoint(obj, curProtPoint); % Currently not implemented to change prot point, template for future.
+
+        % If applicable, generate tissue parameters for the partial "derivative" relative to the tissue of interest for this index. 
         d_tmp_tissueParams = genDeltaTissueParams(obj, tissueJacStruct, tmp_tissueParams, tissueIndex);
 
-        d_tmp_signal(rowIndex, tissueIndex) = obj.simulateSignal(curProtPoint, d_tmp_tissueParams);
+        d_tmp_signal(rowIndex, tissueIndex) = obj.simulateSignal(d_curProtPoint, d_tmp_tissueParams);
     end
 end
 
