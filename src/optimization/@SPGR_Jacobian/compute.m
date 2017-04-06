@@ -34,7 +34,7 @@ end
 %
 
 remainingRows = getRemainingRows(obj);
-if remainingRows < computeOpts.lineBuffer
+if length(remainingRows) < computeOpts.lineBuffer
     rowsToDo = remainingRows;
 else
     rowsToDo = remainingRows(1:computeOpts.lineBuffer);
@@ -105,6 +105,7 @@ if any(isnan(obj.jacobianStruct.jacobianMatrix(:))) % Uncompleted lines have nan
     computeOpts.mode = 'Resume';
 else                                                % Completed lines have nan row elements
     computeOpts.mode = 'Completed';
+    obj.jacobianStruct.status = 'Completed';
 end
 
 end
