@@ -8,6 +8,6 @@ function deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissuePa
     derivSign = obj.derivMap(obj.derivMapDirection);
     
     deltaTissueParams = tissueParams;
-    deltaTissueParams(paramIndex) = deltaTissueParams(paramIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
+    deltaTissueParams(tissueIndex) = deltaTissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
 
 end
