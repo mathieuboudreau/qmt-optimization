@@ -67,16 +67,17 @@ parfor rowIndex = 1:length(rowsToDo)
     % Setup tissue params
     tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
 
+    % Simulate the signal without varying any of the parameters
     tmp_signal(rowIndex,1) = obj.simulateSignal(curProtPoint, tmp_tissueParams);
 
-    for tissueIndex = 1:numParams
+    for paramIndex = 1:numParams
         % If applicable, generate protocol point for the partial "derivative" relative to a "tissueIndex" (note: change name) that may be a measurement correction param (e.g. B1, B0). 
         d_curProtPoint = genDeltaProtPoint(obj, curProtPoint); % Currently not implemented to change prot point, template for future.
 
         % If applicable, generate tissue parameters for the partial "derivative" relative to the tissue of interest for this index. 
-        d_tmp_tissueParams = genDeltaTissueParams(obj, tissueJacStruct, tmp_tissueParams, tissueIndex);
+        d_tmp_tissueParams = genDeltaTissueParams(obj, tissueJacStruct, tmp_tissueParams, computeOpts, paramIndex);
 
-        d_tmp_signal(rowIndex, tissueIndex) = obj.simulateSignal(d_curProtPoint, d_tmp_tissueParams);
+        d_tmp_signal(rowIndex, paramIndex) = obj.simulateSignal(d_curProtPoint, d_tmp_tissueParams);
     end
 end
 
@@ -89,10 +90,10 @@ else
     obj.jacobianStruct.signal(rowsToDo',1) = tmp_signal;
     obj.jacobianStruct.d_signal(rowsToDo',:) = d_tmp_signal;
     
-    for tissueIndex = 1:numParams
-        obj.jacobianStruct.jacobianMatrix(rowsToDo', tissueIndex) = (obj.jacobianStruct.d_signal(rowsToDo', tissueIndex)  - obj.jacobianStruct.signal(rowsToDo')) ...
+    for paramIndex = 1:numParams
+        obj.jacobianStruct.jacobianMatrix(rowsToDo', paramIndex) = (obj.jacobianStruct.d_signal(rowsToDo', paramIndex)  - obj.jacobianStruct.signal(rowsToDo')) ...
                                                                                                                  ./                                               ...
-                                                                                  tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
+                                                                           tissueJacStruct.differential(cell2mat(computeOpts.paramsOfInterest(paramIndex)));
     end
 end
 

@@ -188,7 +188,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
  
             computeOpts.mode = 'New';
-            computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
             computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
@@ -200,7 +200,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
  
             computeOpts.mode = 'Resume';
-            computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
             computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
@@ -214,7 +214,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
            testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
 
            computeOpts.mode = 'New';
-           computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+           computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
            computeOpts.lineBuffer = 2;
 
            computeOpts = testObject.compute(computeOpts);
@@ -229,10 +229,12 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
            testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
 
            computeOpts.mode = 'New';
-           computeOpts.paramsOfInterest = {'F', 'kf', 'T1f', 'T2r', 'T2f'};
+           computeOpts.paramsOfInterest = {'kf'};
            computeOpts.lineBuffer = protocolObj.getNumberOfMeas + 1;
 
-           testObject.compute(computeOpts); % Can't currently think of an assert for this test, but if this call throws an error, the test will fail as intended.       
+           testObject.compute(computeOpts);
+
+           assertEqual(testCase, size(testObject.getJacobian, 1), protocolObj.getNumberOfMeas);
        end
         
     end
