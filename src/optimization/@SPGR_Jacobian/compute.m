@@ -95,6 +95,7 @@ else
                                                                                                                  ./                                               ...
                                                                            tissueJacStruct.differential(cell2mat(computeOpts.paramsOfInterest(paramIndex)));
     end
+    obj.jacobianStruct.completedLines(rowsToDo') = 1;
 end
 
 %% Update computeOpts
@@ -118,7 +119,8 @@ end
 
 function setup(obj, computeOpts)
     obj.jacobianStruct.jacobianMatrix = nan(obj.protocolObj.getNumberOfMeas, length(computeOpts.paramsOfInterest));  %Important to keep uncompleted lines nans, to properly update the mode at the end of a loop.
+    obj.jacobianStruct.params = computeOpts.paramsOfInterest;
 
     obj.jacobianStruct.status = 'Incomplete';
-    obj.jacobianStruct.completedLines = zeros(1, obj.protocolObj.getNumberOfMeas);
+    obj.jacobianStruct.completedLines = zeros(obj.protocolObj.getNumberOfMeas, 1);
 end

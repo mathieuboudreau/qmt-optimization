@@ -36,6 +36,7 @@ classdef SPGR_Jacobian < SeqJacobian
 
         % Get methods
         jacobianMatrix = getJacobian(obj)
+        jacobianMatrix = getJacobianStruct(obj)
         remainingRows = getRemainingRows(obj)
         protPoint = getProtocolPoint(obj, rowIndex)
 
