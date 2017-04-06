@@ -123,9 +123,15 @@ function setup(obj, computeOpts)
     
     obj.jacobianStruct.paramsKeys = computeOpts.paramsOfInterest;
     
+    % Set tissue vals
     tissueJacStruct = obj.genTissueJacStruct();
     obj.jacobianStruct.paramsVals = cell2mat(values(tissueJacStruct.value, obj.jacobianStruct.paramsKeys));
-    
+
+    % Set pertinent protocol vals
+    tmpProtocol = obj.protocolObj.getProtocol;
+    obj.jacobianStruct.protocol(:,1) = tmpProtocol.Angles;
+    obj.jacobianStruct.protocol(:,2) = tmpProtocol.Offsets;
+
     obj.jacobianStruct.status = 'Incomplete';
     obj.jacobianStruct.completedLines = zeros(obj.protocolObj.getNumberOfMeas, 1);
 end
