@@ -73,13 +73,15 @@ parfor rowIndex = 1:length(rowsToDo)
     % Simulate the signal without varying any of the parameters
     [tmp_signal(rowIndex,1), ~] = SPGR_sim(tmp_tissueSim, curProtPoint);
     
-    for tissueIndex = 1:numParams
+    for paramIndex = 1:numParams
+        tissueIndex = find(~cellfun(@isempty, strfind(obj.tissueParamsObj.fitParamsKeys, computeOpts.paramsOfInterest{paramIndex})));
+
         d_tmp_tissueParams = tmp_tissueParams;
-        d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(tissueIndex)));
+        d_tmp_tissueParams(tissueIndex) = d_tmp_tissueParams(tissueIndex) + derivSign * tissueJacStruct.differential(cell2mat(tissueJacStruct.keys(paramIndex)));
         
         d_tmp_tissueSim = generateSPGRSimParam('tmp.mat', d_tmp_tissueParams, 0);
         
-        [d_tmp_signal(rowIndex, tissueIndex), ~] = SPGR_sim(d_tmp_tissueSim, curProtPoint);
+        [d_tmp_signal(rowIndex, paramIndex), ~] = SPGR_sim(d_tmp_tissueSim, curProtPoint);
     end
 end
 
