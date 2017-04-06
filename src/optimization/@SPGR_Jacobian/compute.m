@@ -120,8 +120,12 @@ end
 
 function setup(obj, computeOpts)
     obj.jacobianStruct.jacobianMatrix = nan(obj.protocolObj.getNumberOfMeas, length(computeOpts.paramsOfInterest));  %Important to keep uncompleted lines nans, to properly update the mode at the end of a loop.
-    obj.jacobianStruct.params = computeOpts.paramsOfInterest;
-
+    
+    obj.jacobianStruct.paramsKeys = computeOpts.paramsOfInterest;
+    
+    tissueJacStruct = obj.genTissueJacStruct();
+    obj.jacobianStruct.paramsVals = cell2mat(values(tissueJacStruct.value, obj.jacobianStruct.paramsKeys));
+    
     obj.jacobianStruct.status = 'Incomplete';
     obj.jacobianStruct.completedLines = zeros(obj.protocolObj.getNumberOfMeas, 1);
 end
