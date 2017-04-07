@@ -93,7 +93,7 @@ else
     for paramIndex = 1:numParams
         obj.jacobianStruct.jacobianMatrix(rowsToDo', paramIndex) = (obj.jacobianStruct.d_signal(rowsToDo', paramIndex)  - obj.jacobianStruct.signal(rowsToDo')) ...
                                                                                                                  ./                                               ...
-                                                                           tissueJacStruct.differential(cell2mat(computeOpts.paramsOfInterest(paramIndex)));
+                                                                           tissueJacStruct.differential(cell2mat(obj.jacobianStruct.paramsKeys(paramIndex)));
     end
     obj.jacobianStruct.completedLines(rowsToDo') = 1;
 end
