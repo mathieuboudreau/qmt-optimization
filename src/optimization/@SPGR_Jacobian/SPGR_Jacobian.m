@@ -48,6 +48,7 @@ classdef SPGR_Jacobian < SeqJacobian
         % Methods for Jacobian computation
         computeOpts = compute(obj, computeOpts)
         signalValues = simulateSignal(obj, curProtPoint, tissueParams)
+        derivValues = calcDerivative(obj, func_x, func_x_delta, delta);
     end
 
     methods (Static, Access = public)

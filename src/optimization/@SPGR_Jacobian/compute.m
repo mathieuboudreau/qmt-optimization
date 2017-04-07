@@ -90,10 +90,18 @@ else
     obj.jacobianStruct.signal(rowsToDo',1) = tmp_signal;
     obj.jacobianStruct.d_signal(rowsToDo',:) = d_tmp_signal;
     
-    for paramIndex = 1:numParams
-        obj.jacobianStruct.jacobianMatrix(rowsToDo', paramIndex) = (obj.jacobianStruct.d_signal(rowsToDo', paramIndex)  - obj.jacobianStruct.signal(rowsToDo')) ...
-                                                                                                                 ./                                               ...
-                                                                           tissueJacStruct.differential(cell2mat(obj.jacobianStruct.paramsKeys(paramIndex)));
+    for paramIndex = 1:numParams % "x" - since it's not easy to comment the partial derivative or vector signs further down.
+        % f(x)
+        tmp_func_x = obj.jacobianStruct.signal(rowsToDo');
+
+        % f(x+h) "forward", f(x-h) "backward"
+        tmp_func_x_delta = obj.jacobianStruct.d_signal(rowsToDo', paramIndex);
+        
+        % h
+        tmp_delta = tissueJacStruct.differential(cell2mat(obj.jacobianStruct.paramsKeys(paramIndex)));
+
+        %df/dx, partial derivative
+        obj.jacobianStruct.jacobianMatrix(rowsToDo', paramIndex) = obj.calcDerivative(tmp_func_x, tmp_func_x_delta, tmp_delta);
     end
     obj.jacobianStruct.completedLines(rowsToDo') = 1;
 end
