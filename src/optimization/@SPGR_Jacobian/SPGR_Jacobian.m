@@ -41,8 +41,8 @@ classdef SPGR_Jacobian < SeqJacobian
         protPoint = getProtocolPoint(obj, rowIndex)
 
         % Generate methods
-        tissueJacStruct = genTissueJacStruct(obj)
-        deltaProtPoint = genDeltaProtPoint(obj, protPoint)
+        tissueJacStruct = genParamsJacStruct(obj)
+        deltaProtPoint = genDeltaProtPoint(obj, protPoint, paramIndex)
         deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissueParams, computeOpts, paramIndex)
 
         % Methods for Jacobian computation

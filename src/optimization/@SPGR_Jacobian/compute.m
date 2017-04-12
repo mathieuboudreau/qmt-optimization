@@ -44,7 +44,7 @@ end
 %
 
 % Get the full protocol that the object was initialized with
-tissueJacStruct = obj.genTissueJacStruct();
+paramsJacStruct = obj.genParamsJacStruct();
 
 %% Initialize parrallel pool
 %
@@ -65,17 +65,17 @@ parfor rowIndex = 1:length(rowsToDo)
     curProtPoint = obj.getProtocolPoint(rowsToDo(rowIndex));
 
     % Setup tissue params
-    tmp_tissueParams = cell2mat(values(tissueJacStruct.value,tissueJacStruct.keys));
+    tmp_tissueParams = cell2mat(values(paramsJacStruct.value, obj.tissueParamsObj.fitParamsKeys));
 
     % Simulate the signal without varying any of the parameters
     tmp_signal(rowIndex,1) = obj.simulateSignal(curProtPoint, tmp_tissueParams);
 
     for paramIndex = 1:numParams
         % If applicable, generate protocol point for the partial "derivative" relative to a "tissueIndex" (note: change name) that may be a measurement correction param (e.g. B1, B0). 
-        d_curProtPoint = genDeltaProtPoint(obj, curProtPoint); % Currently not implemented to change prot point, template for future.
+        d_curProtPoint = genDeltaProtPoint(obj, curProtPoint, paramIndex); % Currently not implemented to change prot point, template for future.
 
         % If applicable, generate tissue parameters for the partial "derivative" relative to the tissue of interest for this index. 
-        d_tmp_tissueParams = genDeltaTissueParams(obj, tissueJacStruct, tmp_tissueParams, computeOpts, paramIndex);
+        d_tmp_tissueParams = genDeltaTissueParams(obj, paramsJacStruct, tmp_tissueParams, computeOpts, paramIndex);
 
         d_tmp_signal(rowIndex, paramIndex) = obj.simulateSignal(d_curProtPoint, d_tmp_tissueParams);
     end
@@ -98,7 +98,7 @@ else
         tmp_func_x_delta = obj.jacobianStruct.d_signal(rowsToDo', paramIndex);
         
         % h
-        tmp_delta = tissueJacStruct.differential(cell2mat(obj.jacobianStruct.paramsKeys(paramIndex)));
+        tmp_delta = paramsJacStruct.differential(cell2mat(obj.jacobianStruct.paramsKeys(paramIndex)));
 
         %df/dx, partial derivative
         obj.jacobianStruct.jacobianMatrix(rowsToDo', paramIndex) = obj.calcDerivative(tmp_func_x, tmp_func_x_delta, tmp_delta);
@@ -132,8 +132,8 @@ function setup(obj, computeOpts)
     obj.jacobianStruct.paramsKeys = computeOpts.paramsOfInterest;
     
     % Set tissue vals
-    tissueJacStruct = obj.genTissueJacStruct();
-    obj.jacobianStruct.paramsVals = cell2mat(values(tissueJacStruct.value, obj.jacobianStruct.paramsKeys));
+    paramsJacStruct = obj.genParamsJacStruct();
+    obj.jacobianStruct.paramsVals = cell2mat(values(paramsJacStruct.value, obj.jacobianStruct.paramsKeys));
 
     % Set pertinent protocol vals
     tmpProtocol = obj.protocolObj.getProtocol;

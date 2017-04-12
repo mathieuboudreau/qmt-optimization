@@ -6,7 +6,12 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     properties (Access = protected)
         protocol;
     end
-
+    
+    properties (Constant, Access = public)
+        fitProtKeys = {'B1_IR'};
+        B1_value = 1.0;
+    end
+    
     methods (Access = public)
         % Constructor
         function obj = SPGR_Protocol(fileName)
@@ -28,6 +33,6 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
         prot = getProtocol(obj)
         totalNumOfMeas = getNumberOfMeas(obj);
 
-
+        paramValue = getParameter(obj, protKey)
     end
 end

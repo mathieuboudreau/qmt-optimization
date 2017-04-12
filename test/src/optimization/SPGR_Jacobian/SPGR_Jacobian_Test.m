@@ -4,7 +4,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
         demoProtocol = 'savedprotocols/demo_SPGR_Protocol_for_UnitTest.mat';
         demoTissue = [0.122 3.97 1.1111 1 0.0272 1.0960e-05];
         
-        expected_genTissueJacStruct_Fields={'keys','value','differential'}
+        expected_genParamsJacStruct_Fields={'keys','value','differential'}
         
         p = []; % parpool instance
     end
@@ -93,34 +93,34 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
         end
 
         % Generate methods
-        function test_genTissueJacStruct_returns_struct_with_named_fields(testCase)
+        function test_genParamsJacStruct_returns_struct_with_named_fields(testCase)
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
 
-            testParamStruct = testObject.genTissueJacStruct();
+            testParamStruct = testObject.genParamsJacStruct();
 
-            for ii=1:length(testCase.expected_genTissueJacStruct_Fields)
-                expectedField = testCase.expected_genTissueJacStruct_Fields{ii};
+            for ii=1:length(testCase.expected_genParamsJacStruct_Fields)
+                expectedField = testCase.expected_genParamsJacStruct_Fields{ii};
 
                 assert(isfield(testParamStruct, expectedField))
             end
         end
 
-        function test_genTissueJacStruct_contains_expected_keys(testCase)
+        function test_genParamsJacStruct_contains_expected_keys(testCase)
             tissueObject = SPGR_Tissue(testCase.demoTissue);
             
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
-            testParamStruct = testObject.genTissueJacStruct();
+            testParamStruct = testObject.genParamsJacStruct();
 
             for ii=1:length(tissueObject.fitParamsKeys)
                 assert(any(ismember(testParamStruct.keys,tissueObject.fitParamsKeys(ii))))
             end
         end
 
-        function test_genTissueJacStruct_contains_expected_values(testCase)
+        function test_genParamsJacStruct_contains_expected_values(testCase)
             tissueObject = SPGR_Tissue(testCase.demoTissue);
 
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
-            testParamStruct = testObject.genTissueJacStruct();
+            testParamStruct = testObject.genParamsJacStruct();
 
             for ii=1:length(tissueObject.fitParamsKeys)
                 keyVal = cell2mat(tissueObject.fitParamsKeys(ii));
@@ -128,11 +128,11 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             end
         end
 
-        function test_genTissueJacStruct_contains_expected_differentials(testCase)
+        function test_genParamsJacStruct_contains_expected_differentials(testCase)
             tissueObject = SPGR_Tissue(testCase.demoTissue);
 
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), tissueObject);
-            testParamStruct = testObject.genTissueJacStruct();
+            testParamStruct = testObject.genParamsJacStruct();
             differentialFactor = 10^(-2)./100; % 10^-2 % should be default.
 
             for ii=1:length(tissueObject.fitParamsKeys)
@@ -188,7 +188,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
  
             computeOpts.mode = 'New';
-            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f', 'B1_IR'};
             computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
@@ -200,7 +200,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
  
             computeOpts.mode = 'Resume';
-            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
+            computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f', 'B1_IR'};
             computeOpts.lineBuffer = 2;
 
             computeOpts = testObject.compute(computeOpts);
@@ -214,7 +214,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
            testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
 
            computeOpts.mode = 'New';
-           computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f'};
+           computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f', 'B1_IR'};
            computeOpts.lineBuffer = 2;
 
            computeOpts = testObject.compute(computeOpts);
