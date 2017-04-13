@@ -8,7 +8,7 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     end
     
     properties (Constant, Access = public)
-        fitProtKeys = {'B1_IR'};
+        fitProtKeys = {'B1_IR', 'B1_VFA'};
         B1_value = 1.0;
     end
     

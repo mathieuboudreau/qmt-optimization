@@ -10,6 +10,8 @@ function paramValue = getParameter(obj, protKey)
     switch protKey
         case 'B1_IR'
             paramValue = obj.B1_value;
+        case 'B1_VFA'
+            paramValue = obj.B1_value;
         otherwise
             error('Key not found');
     end
