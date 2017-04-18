@@ -9,16 +9,9 @@ classdef SPGR_Jacobian < SeqJacobian
     %   human redable format for the user.
 
     properties (Access = protected)
-        protocolObj
-        tissueParamsObj
-
-        jacobianStruct = struct('jacobianMatrix',[]);
-
-        derivMapDirection = 'forward';
     end
-
-    properties (Access = private)
-       deltaPerc = 10^(-2); % Percentage difference for derivatives calculations
+    
+    properties (Constant, Access = public)
     end
 
     methods (Access = public)
@@ -35,25 +28,17 @@ classdef SPGR_Jacobian < SeqJacobian
         end
 
         % Get methods
-        jacobianMatrix = getJacobian(obj)
-        jacobianMatrix = getJacobianStruct(obj)
-        remainingRows = getRemainingRows(obj)
         protPoint = getProtocolPoint(obj, rowIndex)
 
         % Generate methods
-        tissueJacStruct = genParamsJacStruct(obj)
         deltaProtPoint = genDeltaProtPoint(obj, protPoint, paramIndex)
         deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissueParams, computeOpts, paramIndex)
 
         % Methods for Jacobian computation
-        computeOpts = compute(obj, computeOpts)
         signalValues = simulateSignal(obj, curProtPoint, tissueParams)
-        derivValues = calcDerivative(obj, func_x, func_x_delta, delta);
     end
 
     methods (Static, Access = public)
-        % Mapping methods
-        signVal = derivMap(mapType);
     end
 
 end
