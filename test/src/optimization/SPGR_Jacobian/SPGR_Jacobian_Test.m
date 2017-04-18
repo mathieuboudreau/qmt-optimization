@@ -214,7 +214,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
            testObject = SPGR_Jacobian(protocolObj, SPGR_Tissue(testCase.demoTissue));
 
            computeOpts.mode = 'New';
-           computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f', 'B1_IR'};
+           computeOpts.paramsOfInterest = {'F', 'kf', 'T2r', 'T2f', 'B1_IR', 'B1_VFA'};
            computeOpts.lineBuffer = 2;
 
            computeOpts = testObject.compute(computeOpts);

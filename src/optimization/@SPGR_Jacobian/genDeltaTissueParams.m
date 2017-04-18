@@ -14,7 +14,7 @@ function deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissuePa
 
                 tissueIndex = find(~cellfun(@isempty, strfind(obj.tissueParamsObj.fitParamsKeys, 'R1f'))); % Parameter that will delta will be applied to.
                 
-                delta_R1f = calcDeltaR1f_VFA_DueToDeltaB1(pIndex);
+                delta_R1f = calcDeltaR1f_VFA_DueToDeltaB1(obj, tissueParams, derivSign);
                 
                 % Get set of dParams for new dT1f
                 deltaTissueParams(tissueIndex) = delta_R1f;
@@ -27,7 +27,7 @@ function deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissuePa
     end
 end
 
-function deltaR1f = calcDeltaR1f_VFA_DueToDeltaB1(obj)
+function deltaR1f = calcDeltaR1f_VFA_DueToDeltaB1(obj, tissueParams, derivSign)
                 pIndex.F = find(~cellfun(@isempty, strfind(obj.tissueParamsObj.fitParamsKeys, 'F')));
                 pIndex.kf = find(~cellfun(@isempty, strfind(obj.tissueParamsObj.fitParamsKeys, 'kf')));
                 pIndex.R1f = find(~cellfun(@isempty, strfind(obj.tissueParamsObj.fitParamsKeys, 'R1f')));
