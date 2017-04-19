@@ -18,9 +18,8 @@ classdef (Abstract = true) TissueParams < handle
             load(obj, fileName)
 
         % Set/Get methods
-            % **Abstract**
-            getParams(obj)
-            getParameter(obj, paramKey);
+        paramsArray = getParams(obj, tissueKeys)
+        paramValue = getParameter(obj, paramKey)
     end
 
 end

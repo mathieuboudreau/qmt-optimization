@@ -29,10 +29,6 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
 
         % Save/Load object
         load(obj, fileName)
-
-        % Set/Get methods
-        paramsArray = getParams(obj, tissueKeys)
-        paramValue = getParameter(obj, paramKey)
     end
 
 end
