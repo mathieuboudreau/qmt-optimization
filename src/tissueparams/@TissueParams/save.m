@@ -1,5 +1,5 @@
 function [] = save(obj, fileName)
-%SAVE Save tissue dictionnary to a mat file.
+%SAVE Save tissue dictionary to a mat file.
 
     tissueParams = obj.params;
 
