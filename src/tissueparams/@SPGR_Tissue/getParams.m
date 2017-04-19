@@ -1,5 +1,5 @@
 function paramsArray = getParams(obj, tissueKeys)
-%GETPARAMS Returns qMT SPGR tissue parameters array.
+%GETPARAMS Returns qMT tissue parameters array.
 
     switch nargin
         case 2
@@ -7,7 +7,7 @@ function paramsArray = getParams(obj, tissueKeys)
                 paramsCell{ii} = obj.getParameter(tissueKeys(ii));
             end
         case 1
-            paramsCell = values(obj.params, SPGR_Tissue.paramsKeys);
+            paramsCell = values(obj.params, obj.paramsKeys);
         otherwise
             error('Non-static class methods must be called by an object');
     end
