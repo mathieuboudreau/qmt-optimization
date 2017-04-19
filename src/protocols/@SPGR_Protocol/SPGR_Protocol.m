@@ -4,7 +4,6 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     %   Parent class: SeqProtocol
 
     properties (Access = protected)
-        protocol;
     end
     
     properties (Constant, Access = public)
@@ -22,17 +21,9 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
             end
         end
 
-        % Prototypes
-        remove(obj, indices);
-
-        % Save/Load object
-        save(obj, fileName)
-        load(obj, fileName)
-
         % Set/Get methods
-        prot = getProtocol(obj)
         totalNumOfMeas = getNumberOfMeas(obj);
-
         paramValue = getParameter(obj, protKey)
+        remove(obj, indices);
     end
 end

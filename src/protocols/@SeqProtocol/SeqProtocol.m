@@ -7,16 +7,22 @@ classdef (Abstract = true) SeqProtocol < handle
     %   getProtocol should give the objects protocol details/variables in a
     %   human redable format for the user.
 
-    properties (Abstract = true, Access = protected)
+    properties (Access = protected)
         protocol
     end
 
-    methods (Abstract = true, Access = public)
+    methods (Access = public)
+        % Save/Load object
         save(obj, fileName)
         load(obj, fileName)
 
-        getProtocol(obj)
-        getNumberOfMeas(obj);
+        % Set/Get methods
+        prot = getProtocol(obj)
+            % **Abstract**
+            totalNumOfMeas = getNumberOfMeas(obj);
+            paramValue = getParameter(obj, protKey)
+            remove(obj, indices);
+
     end
 
 end
