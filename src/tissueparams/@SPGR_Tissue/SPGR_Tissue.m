@@ -8,7 +8,6 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
     %   human redable format for the user.
 
     properties (Access = protected)
-        params
     end
     
     properties (Constant, Access = public)
@@ -28,9 +27,10 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
             obj.params = containers.Map(SPGR_Tissue.paramsKeys, paramsValues);
         end
 
-        save(obj, fileName)
+        % Save/Load object
         load(obj, fileName)
 
+        % Set/Get methods
         paramsArray = getParams(obj, tissueKeys)
         paramValue = getParameter(obj, paramKey)
     end

@@ -7,16 +7,20 @@ classdef (Abstract = true) TissueParams < handle
     %   getParams should give the objects tissue parameters in a
     %   human redable format for the user.
 
-    properties (Abstract = true, Access = protected)
+    properties (Access = protected)
         params
     end
 
-    methods (Abstract = true, Access = public)
+    methods (Access = public)
+        % Save/Load object
         save(obj, fileName)
-        load(obj, fileName)
+            % **Abstract**
+            load(obj, fileName)
 
-        getParams(obj)
-        getParameter(obj, paramKey);
+        % Set/Get methods
+            % **Abstract**
+            getParams(obj)
+            getParameter(obj, paramKey);
     end
 
 end
