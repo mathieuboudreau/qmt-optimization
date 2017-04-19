@@ -1,4 +1,4 @@
-classdef SeqJacobian < handle
+classdef (Abstract = true) SeqJacobian < handle
     %SEQJacobian Abstract class to calculate and store Jacobian for an MRI
     %pulse sequence
     %
