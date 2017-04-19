@@ -26,9 +26,6 @@ classdef SPGR_Tissue < TissueParams & AbstractSPGR
             
             obj.params = containers.Map(SPGR_Tissue.paramsKeys, paramsValues);
         end
-
-        % Save/Load object
-        load(obj, fileName)
     end
 
 end

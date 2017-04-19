@@ -14,8 +14,7 @@ classdef (Abstract = true) TissueParams < handle
     methods (Access = public)
         % Save/Load object
         save(obj, fileName)
-            % **Abstract**
-            load(obj, fileName)
+        load(obj, fileName)
 
         % Set/Get methods
         paramsArray = getParams(obj, tissueKeys)
