@@ -1,12 +1,12 @@
 function [] = save(obj, fileName)
 %SAVE Save tissue dictionnary to a mat file.
 
-    SPGR_Tissue_params = obj.params;
+    tissueParams = obj.params;
 
     assert(exist(fileName, 'file')==0, 'A file with that name already exists - cannot overwrite.')
     
     try
-        save(fileName, '-mat', 'SPGR_Tissue_params');
+        save(fileName, '-mat', 'tissueParams');
     catch ME
         error(ME.identifier, ME.message)
     end
