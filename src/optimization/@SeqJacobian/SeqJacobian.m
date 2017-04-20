@@ -37,21 +37,22 @@ classdef (Abstract = true) SeqJacobian < handle
             % **Abstract**
             protPoint = getProtocolPoint(obj, rowIndex)
 
+        % Methods for Jacobian computation
+        computeOpts = compute(obj, computeOpts)
+    end
+
+    methods (Access = protected)
         % Generate methods
         tissueJacStruct = genParamsJacStruct(obj)
             % **Abstract**
             deltaProtPoint = genDeltaProtPoint(obj, protPoint, paramIndex)
             deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissueParams, computeOpts, paramIndex) % Abstract
-
-        % Methods for Jacobian computation
+        
+            % Methods for Jacobian computation
         derivValues = calcDerivative(obj, func_x, func_x_delta, delta);
-        computeOpts = compute(obj, computeOpts)
             % **Abstract**
-            signalValues = simulateSignal(obj, curProtPoint, tissueParams)
-
-
+            signalValues = simulateSignal(obj, curProtPoint, tissueParams) 
     end
-
 
     methods (Static, Access = public)
         % Mapping methods

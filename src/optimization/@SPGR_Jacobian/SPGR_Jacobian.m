@@ -29,7 +29,9 @@ classdef SPGR_Jacobian < SeqJacobian
 
         % Get methods
         protPoint = getProtocolPoint(obj, rowIndex)
-
+    end
+    
+    methods (Access = protected)
         % Generate methods
         deltaProtPoint = genDeltaProtPoint(obj, protPoint, paramIndex)
         deltaTissueParams = genDeltaTissueParams(obj, tissueJacStruct, tissueParams, computeOpts, paramIndex)
