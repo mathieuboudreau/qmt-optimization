@@ -26,9 +26,6 @@ classdef SPGR_Jacobian < SeqJacobian
 
     properties (Access = protected)
     end
-    
-    properties (Constant, Access = public)
-    end
 
     methods (Access = public)
         % Constructor

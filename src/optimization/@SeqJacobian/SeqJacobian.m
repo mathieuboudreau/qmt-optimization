@@ -15,9 +15,6 @@ classdef (Abstract = true) SeqJacobian < handle
         derivMapDirection = 'forward';
         deltaPerc = 10^(-2); % Percentage difference for derivatives calculations
     end
- 
-    properties (Constant, Access = public)
-    end
 
     methods (Access = public)
         % Constructor
