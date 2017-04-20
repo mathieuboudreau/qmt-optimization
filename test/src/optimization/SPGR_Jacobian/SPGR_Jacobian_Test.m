@@ -76,21 +76,6 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Jacobian_Test < matlab.unittest.Test
             testObject = SPGR_Jacobian(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
             assertInstanceOf(testCase, testObject.getJacobian, 'double');
         end
-        
-        function test_getProtPoint_returns_known_case(testCase)
-            testProt = SPGR_Protocol(testCase.demoProtocol);
-            
-            testObject = SPGR_Jacobian(testProt, SPGR_Tissue(testCase.demoTissue));
-            
-            % Get expected protocol point
-            expectedProtPoint =  testProt.getProtocol;
-            pointIndex = floor(length(expectedProtPoint.Offsets)/2);
-
-            expectedProtPoint.Angles = expectedProtPoint.Angles(pointIndex);
-            expectedProtPoint.Offsets = expectedProtPoint.Offsets(pointIndex);
-            
-            assertEqual(testCase, testObject.getProtocolPoint(pointIndex), expectedProtPoint);
-        end
     
         % Methods for Jacobian computation
         function test_compute_returns_error_for_unkown_computOpts_mode(testCase)

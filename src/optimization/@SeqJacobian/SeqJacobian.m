@@ -33,15 +33,17 @@ classdef (Abstract = true) SeqJacobian < handle
         % Get methods
         jacobianMatrix = getJacobian(obj)
         jacobianMatrix = getJacobianStruct(obj)
-        remainingRows = getRemainingRows(obj)
-            % **Abstract**
-            protPoint = getProtocolPoint(obj, rowIndex)
 
         % Methods for Jacobian computation
         computeOpts = compute(obj, computeOpts)
     end
 
     methods (Access = protected)
+        % Get methods
+        remainingRows = getRemainingRows(obj)
+            % **Abstract**
+            protPoint = getProtocolPoint(obj, rowIndex)
+
         % Generate methods
         tissueJacStruct = genParamsJacStruct(obj)
             % **Abstract**
