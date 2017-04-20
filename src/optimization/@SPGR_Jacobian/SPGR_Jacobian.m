@@ -1,12 +1,28 @@
 classdef SPGR_Jacobian < SeqJacobian
-    %SEQJacobian Abstract class to calculate and store Jacobian for an MRI
-    %pulse sequence
+    %SPGR_JACOBIAN Calculate and store Jacobian for an SPGR qMT sequence.
     %
-    %   Save and load methods deal strictly at importing/exporting the
-    %   protocol property from/to external files.
+    %   --Methods--
+    %   compute(computeOpts): Compute Jacobian rows.
+    %       computeOpts: Struct with three properties - 'mode',
+    %       'paramsOfInterest', and 'linesBuffer'.
+    %           
+    %           computeOpts.mode: String. 'New', 'Resume', or 'Completed'.
     %
-    %   getProtocol should give the objects protocol details/variables in a
-    %   human redable format for the user.
+    %           computeOpts.paramsOfInterest: Cell array of strings. Can be
+    %           any key values of SPGR_Tissue.fitParamsKeys and/or 
+    %           SPGR_Protocol.fitProtKeys.
+    %
+    %           computeOpts.lineBuffer: Integer. Number of Jacobian rows to
+    %           be calculated in the next call of compute.
+    %
+    %       *returns*: computeOpts with updated 'mode' property/status.
+    %
+    %   getJacobian(): Returns Jacobian matrix values calculated to date.
+    %
+    %   getJacobianStruct(): Returns Jacobian struct. Contains Jacobian
+    %   along with additional properties that may be useful for some users.
+    %
+
 
     properties (Access = protected)
     end
