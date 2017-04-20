@@ -1,6 +1,9 @@
 classdef SPGR_Jacobian < SeqJacobian
     %SPGR_JACOBIAN Calculate and store Jacobian for an SPGR qMT sequence.
     %
+    %   --Initialization--
+    %   SPGR_Jacobian(SPGR_Protocol, SPGR_Tissue)
+    %
     %   --Methods--
     %   compute(computeOpts): Compute Jacobian rows.
     %       computeOpts: Struct with three properties - 'mode',
