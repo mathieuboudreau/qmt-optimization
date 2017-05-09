@@ -50,7 +50,7 @@ paramsJacStruct = obj.genParamsJacStruct();
 %
 
 if ~ParPool.checkExistingSession()
-    ParPool.instance();
+    parpool()
 end
 
 %% Compute Jacobian rows
