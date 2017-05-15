@@ -17,7 +17,7 @@ classdef (TestTags = {'SPGR', 'Demo', 'Integration'}) SPGR_SimDemoTest < matlab.
 
     methods (Test)
         function testFittedParamsNearInputValues(testCase)
-            run([testCase.qmtlabPath, '/SPGR/SimDemo.m'])
+            run([testCase.qmtlabPath, '/Models_Functions/SPGRfun/SimDemo.m'])
 
             inputParams  = Sim.Param;
             outputParams = SimCurveResults;
