@@ -2,11 +2,6 @@ classdef (Abstract = true) SeqJacobian < handle
     %SEQJacobian Abstract class to calculate and store Jacobian for an MRI
     %pulse sequence
     %
-    %   Save and load methods deal strictly at importing/exporting the
-    %   protocol property from/to external files.
-    %
-    %   getProtocol should give the objects protocol details/variables in a
-    %   human redable format for the user.
 
     properties (Access = protected)
         protocolObj
