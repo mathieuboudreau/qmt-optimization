@@ -12,8 +12,13 @@ classdef SPGR_Optimization < SeqOptimization
 
     methods (Access = public)
         % Constructor
-        function obj = SPGR_Optimization()
-            obj = obj@SeqOptimization();
+        function obj = SPGR_Optimization(SPGR_Jacobian_Obj, opts)
+            obj = obj@SeqOptimization(SPGR_Jacobian_Obj, opts);
+            
+            assert(isa(SPGR_Jacobian_Obj, 'SPGR_Jacobian'))
+            
+            obj.jacobianObj = SPGR_Jacobian_Obj;
+            obj.opts = opts;
         end
     end
     

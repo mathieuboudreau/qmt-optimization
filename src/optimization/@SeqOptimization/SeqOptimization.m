@@ -3,6 +3,8 @@ classdef (Abstract = true) SeqOptimization < handle
     %
 
     properties (Access = protected)
+        jacobianObj
+        opts
     end
 
     methods (Access = public)
@@ -11,7 +13,8 @@ classdef (Abstract = true) SeqOptimization < handle
         % handling the object.
         % e.g. obj = obj@SeqOptimization();
         
-        function obj = SeqOptimization()
+        function obj = SeqOptimization(SeqJacobian_Obj, opts)
+        	assert(isa(SeqJacobian_Obj, 'SeqJacobian'), 'SeqOptimization:wrongArgClass', 'First input argument to SeqOptimization subclasses must be an object that has a parent class of type ''SeqJacobian''')
         end
     end
 
