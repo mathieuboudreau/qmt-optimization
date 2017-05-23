@@ -22,6 +22,7 @@ classdef (Abstract = true) SeqOptimization < handle
     end
 
     methods (Static, Access = public)
+        paramError = minimizeParamErrorBecauseOfMeasError(paramJacMat, measJacMat, measError)
     end
 
 end
