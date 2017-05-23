@@ -11,6 +11,8 @@ classdef SPGR_Optimization < SeqOptimization
         fitParams
         fitParamsValues
         fitParamJacobian
+        
+        measOptMask % Default is 0s
     end
 
     methods (Access = public)
@@ -24,14 +26,11 @@ classdef SPGR_Optimization < SeqOptimization
             obj.jacobianObj = SPGR_Jacobian_Obj;
             obj.opts = opts;
             
-            % Set fit params
+            % Set properties
             obj.fitParams = obj.opts.fitParams;
-            
-            % Set jacobian
             obj.setFitParamJacobian();
-            
-            % Set params values
             obj.setFitParamsValues();
+            obj.measOptMask = zeros(size(fitParamJacobian,1), 1);
         end
     end
     
