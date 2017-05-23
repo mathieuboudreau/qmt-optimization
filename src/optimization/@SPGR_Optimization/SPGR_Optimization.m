@@ -8,6 +8,8 @@ classdef SPGR_Optimization < SeqOptimization
 
 
     properties (Access = protected)
+        fitParams
+        fitParamJacobian
     end
 
     methods (Access = public)
@@ -17,12 +19,20 @@ classdef SPGR_Optimization < SeqOptimization
             
             assert(isa(SPGR_Jacobian_Obj, 'SPGR_Jacobian'))
             
+            % Save initializer args
             obj.jacobianObj = SPGR_Jacobian_Obj;
             obj.opts = opts;
+            
+            % Set fit params
+            obj.fitParams = obj.opts.fitParams;
+            
+            % Set jacobian
+            obj.setFitParamJacobian();
         end
     end
     
     methods (Access = protected)
+       setFitParamJacobian(jacobianObj, fitParams)
     end
 
     methods (Static, Access = public)
