@@ -9,6 +9,7 @@ classdef SPGR_Optimization < SeqOptimization
 
     properties (Access = protected)
         fitParams
+        fitParamsValues
         fitParamJacobian
     end
 
