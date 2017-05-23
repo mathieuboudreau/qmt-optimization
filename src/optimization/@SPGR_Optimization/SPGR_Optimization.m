@@ -29,6 +29,9 @@ classdef SPGR_Optimization < SeqOptimization
             
             % Set jacobian
             obj.setFitParamJacobian();
+            
+            % Set params values
+            obj.setFitParamsValues();
         end
     end
     
