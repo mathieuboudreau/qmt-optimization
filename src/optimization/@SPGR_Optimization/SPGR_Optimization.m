@@ -6,13 +6,16 @@ classdef SPGR_Optimization < SeqOptimization
     %   --Methods--
     %
 
-
     properties (Access = protected)
+        % minimMetric = 'CRLB';
+        % normalizationFlag = 'Normalized';
+        
         fitParams
         fitParamsValues
         fitParamJacobian
         
-        measOptMask % Default is 0s
+        rankedAcqPoints % Default is 0s
+        metricValsAcqPoints % Default is nan;
     end
 
     methods (Access = public)
@@ -30,12 +33,19 @@ classdef SPGR_Optimization < SeqOptimization
             obj.fitParams = obj.opts.fitParams;
             obj.setFitParamJacobian();
             obj.setFitParamsValues();
-            obj.measOptMask = zeros(size(fitParamJacobian,1), 1);
+            obj.resetRankedAcqPoints();
+            obj.resetMetricValsAcqPoints();
         end
+
+        % Compute methods
+        % iterOptim(obj)
     end
     
     methods (Access = protected)
        setFitParamJacobian(jacobianObj, fitParams)
+       resetRankedAcqPoints(obj)
+       resetMetricValsAcqPoints(obj)
+       % [jacobianSubset, acqPointRows] = getJacobianSubset(obj)
     end
 
     methods (Static, Access = public)
