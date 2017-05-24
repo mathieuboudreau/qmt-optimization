@@ -7,8 +7,8 @@ classdef SPGR_Optimization < SeqOptimization
     %
 
     properties (Access = protected)
-        % minimMetric = 'CRLB';
-        % normalizationFlag = 'Normalized';
+        minimMetric = 'CRLB';
+        normalizationFlag = 'Normalized';
         
         fitParams
         fitParamsValues
@@ -38,14 +38,17 @@ classdef SPGR_Optimization < SeqOptimization
         end
 
         % Compute methods
-        % iterOptim(obj)
+        iterOptim(obj)
     end
     
     methods (Access = protected)
        setFitParamJacobian(jacobianObj, fitParams)
        resetRankedAcqPoints(obj)
        resetMetricValsAcqPoints(obj)
-       % [jacobianSubset, acqPointRows] = getJacobianSubset(obj)
+       
+       
+       [jacobianSubset, acqPointRows] = getJacobianSubset(obj)
+       minValue = findMinDeltaMetricVal(obj, metricValues)
     end
 
     methods (Static, Access = public)
