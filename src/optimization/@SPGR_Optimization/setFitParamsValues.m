@@ -8,5 +8,5 @@ function setFitParamsValues(obj)
         jacColumnIndices(ii) = find(ismember(jacStruct.paramsKeys, obj.opts.fitParams(ii)));
     end
 
-    fitParamsValues =  jacStruct.paramsVals(jacColumnIndices);
+    obj.fitParamsValues =  jacStruct.paramsVals(jacColumnIndices);
 end
