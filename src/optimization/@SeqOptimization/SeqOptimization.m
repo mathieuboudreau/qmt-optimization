@@ -24,6 +24,7 @@ classdef (Abstract = true) SeqOptimization < handle
     methods (Static, Access = public)
         paramError = minimizeParamErrorBecauseOfMeasError(paramJacMat, measJacMat, measError)
         fisherInformationMatrix = calcFIM(jacobianMatrix)
+        crlb = calcCRLB(jacobianMatrix)
     end
 
 end
