@@ -11,7 +11,7 @@ function [] = iterOptim(obj)
         
         %% Calculate the minimization metrics for each N-1 row subsets
         % metricValues will be same dims as acqPointRows
-        metricValues = calcMetricFor_N_Minus_1_Subsets(jacobianSubset);
+        metricValues = obj.calcMetricFor_N_Minus_1_Subsets(jacobianSubset);
         
         %% Find & store the metric value with minimum increase relative to last iteration
         %
@@ -25,8 +25,4 @@ function [] = iterOptim(obj)
         obj.metricValsAcqPoints(acqPoint) = minValue;
     end
 
-end
-
-function foo = calcMetricFor_N_Minus_1_Subsets(jacobianSubset)
-    foo = jacobianSubset(:,1);
 end
