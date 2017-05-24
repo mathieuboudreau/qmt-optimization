@@ -8,5 +8,5 @@ function setFitParamJacobian(obj)
         jacColumnIndices(ii) = find(ismember(jacStruct.paramsKeys, obj.opts.fitParams(ii)));
     end
     
-    fitParamJacobian =  jacStruct.jacobianMatrix(:, jacColumnIndices);
+    obj.fitParamJacobian =  jacStruct.jacobianMatrix(:, jacColumnIndices);
 end
