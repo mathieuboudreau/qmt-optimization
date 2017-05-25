@@ -1,6 +1,8 @@
 classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Optimization_Test < matlab.unittest.TestCase
 
     properties
+    	demoJacobian = 'savedjacobians/test_jacobian.mat';
+        demoOpts = struct('fitParams', {{'F', 'kf', 'T2f', 'T2r'}});
     end
     
     methods (TestClassSetup)
@@ -24,6 +26,50 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_Optimization_Test < matlab.unittest.
 
          end
 
+         function test_getRankedAcqPoints_returns_0s_after_initialization(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = SPGR_Optimization(jacobianObj, testCase.demoOpts);
+
+             rankedAcqPoints = optObj.getRankedAcqPoints();
+
+             assertFalse(testCase, any(rankedAcqPoints));
+         end
+         
+         function test_getMetricValsAcqPoints_returns_nans_after_initialization(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = SPGR_Optimization(jacobianObj, testCase.demoOpts);
+
+             metricValsAcqPoints = optObj.getMetricValsAcqPoints();
+
+             assertTrue(testCase, all( isnan(metricValsAcqPoints) ));
+         end
+
+         
+         function test_getRankedAcqPoints_returns_NO_0s_after_initialization(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = SPGR_Optimization(jacobianObj, testCase.demoOpts);
+
+             optObj.iterOptim();
+             
+             rankedAcqPoints = optObj.getRankedAcqPoints();
+
+             assertTrue(testCase, all(rankedAcqPoints));
+         end
+         
+         function test_getMetricValsAcqPoints_returns_NO_nans_after_initiali(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = SPGR_Optimization(jacobianObj, testCase.demoOpts);
+             
+             optObj.iterOptim();
+
+             metricValsAcqPoints = optObj.getMetricValsAcqPoints();
+
+             assertFalse(testCase, any( isnan(metricValsAcqPoints) ));
+         end
     end
 
 end

@@ -39,6 +39,10 @@ classdef SPGR_Optimization < SeqOptimization
 
         % Compute methods
         iterOptim(obj)
+        
+        % Get Methods
+        rankedAcqPoints = getRankedAcqPoints(obj)
+        metricValsAcqPoints  = getMetricValsAcqPoints(obj)
     end
     
     methods (Access = protected)
