@@ -1,5 +1,5 @@
-classdef SPGR_Optimization < SeqOptimization
-    %SPGR_OPTIMIZATION Optimize a set of SPGR qMT acquisitions.
+classdef IterativeOptimization < SeqOptimization
+    %ITERATIVEOPTIMIZATION Optimize a set of qMT acquisitions iteratively.
     %
     %   --Initialization--
     %
@@ -20,13 +20,11 @@ classdef SPGR_Optimization < SeqOptimization
 
     methods (Access = public)
         % Constructor
-        function obj = SPGR_Optimization(SPGR_Jacobian_Obj, opts)
-            obj = obj@SeqOptimization(SPGR_Jacobian_Obj, opts);
-            
-            assert(isa(SPGR_Jacobian_Obj, 'SPGR_Jacobian'))
-            
+        function obj = IterativeOptimization(SeqJacobian_Obj, opts)
+            obj = obj@SeqOptimization(SeqJacobian_Obj, opts);
+                        
             % Save initializer args
-            obj.jacobianObj = SPGR_Jacobian_Obj;
+            obj.jacobianObj = SeqJacobian_Obj;
             obj.opts = opts;
             
             % Set properties

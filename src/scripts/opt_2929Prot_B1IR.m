@@ -1,7 +1,7 @@
 clear all
 load('/Users/mathieuboudreau/Work/Projects/qMT_B1_Optimization_Paper_Analysis/processing/stage_2/part_1/processed_jacobians/2929point_protocol.mat')
 opts.fitParams = {'F', 'kf', 'T2f', 'T2r'}
-A=SPGR_Optimization(jacobianObj, opts)
+A=IterativeOptimization(jacobianObj, opts)
 A.iterOptim
 
 rankedAcqPoints = A.getRankedAcqPoints();
