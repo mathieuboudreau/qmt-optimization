@@ -1,10 +1,15 @@
-function [] = computeSingle(obj)
+function [] = computeSingle(obj, metricFlag)
 %COMPUTESINGLE Summary of this function goes here
 %   Detailed explanation goes here
 
     obj.resetRankedAcqPoints();
     obj.resetMetricValsAcqPoints();
-    
+    if(any(strcmp(obj.metricSet, metricFlag)))
+        obj.minimMetric = metricFlag;
+    else
+        error('IterativeOptimization:UnknownMetric', 'Unkown minimization metric.')
+    end
+
     while any(~obj.rankedAcqPoints)
         %% Get subset of Jacobian
         [jacobianSubset, acqPointRows] = obj.getJacobianSubset();

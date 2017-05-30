@@ -7,7 +7,9 @@ classdef IterativeOptimization < SeqOptimization
     %
 
     properties (Access = protected)
-        minimMetric = 'CRLB';
+        metricSet = {'CRLB'}; % Valid optimization metrics
+
+        minimMetric
         normalizationFlag = 'Normalized';
         
         fitParams
@@ -36,7 +38,7 @@ classdef IterativeOptimization < SeqOptimization
         end
 
         % Compute methods
-        computeSingle(obj)
+        computeSingle(obj, metricFlag)
         
         % Get Methods
         rankedAcqPoints = getRankedAcqPoints(obj)
