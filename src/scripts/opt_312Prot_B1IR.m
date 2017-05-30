@@ -2,7 +2,7 @@ clear all
 load('/Users/mathieuboudreau/Work/Projects/qMT_B1_Optimization_Paper_Analysis/processing/stage_2/part_1/processed_jacobians/312point_protocol.mat')
 opts.fitParams = {'F', 'kf', 'T2f', 'T2r'}
 A=IterativeOptimization(jacobianObj, opts)
-A.iterOptim
+A.computeSingle
 
 rankedAcqPoints = A.getRankedAcqPoints();
 

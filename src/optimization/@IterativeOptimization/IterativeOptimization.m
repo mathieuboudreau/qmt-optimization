@@ -36,7 +36,7 @@ classdef IterativeOptimization < SeqOptimization
         end
 
         % Compute methods
-        iterOptim(obj)
+        computeSingle(obj)
         
         % Get Methods
         rankedAcqPoints = getRankedAcqPoints(obj)

@@ -52,7 +52,7 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
              load(testCase.demoJacobian, 'jacobianObj');
              optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
 
-             optObj.iterOptim();
+             optObj.computeSingle();
              
              rankedAcqPoints = optObj.getRankedAcqPoints();
 
@@ -64,7 +64,7 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
              load(testCase.demoJacobian, 'jacobianObj');
              optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
              
-             optObj.iterOptim();
+             optObj.computeSingle();
 
              metricValsAcqPoints = optObj.getMetricValsAcqPoints();
 

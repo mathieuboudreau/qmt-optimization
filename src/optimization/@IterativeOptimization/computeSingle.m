@@ -1,5 +1,5 @@
-function [] = iterOptim(obj)
-%ITEROPTIM Summary of this function goes here
+function [] = computeSingle(obj)
+%COMPUTESINGLE Summary of this function goes here
 %   Detailed explanation goes here
 
     obj.resetRankedAcqPoints();
