@@ -70,7 +70,7 @@ classdef IterativeOptimization < SeqOptimization
        
        [jacobianSubset, acqPointRows] = getJacobianSubset(obj)
        minValue = findMinDeltaMetricVal(obj, metricValues)
-       metricValues = calcMetricFor_N_Minus_1_Subsets(obj,jacobianSubset)
+       metricValues = calcMetricFor_N_Minus_1_Subsets(obj, jacobianSubset, acqPointRows)
     end
 
     methods (Static, Access = public)

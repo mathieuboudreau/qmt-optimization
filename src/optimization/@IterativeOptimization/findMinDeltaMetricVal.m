@@ -9,6 +9,8 @@ function minValue = findMinDeltaMetricVal(obj, metricValues)
         switch obj.minimMetric
             case 'CRLB'
                 previousMetricVal = 1; % Because we are doing the ratio delta method.
+            case {'B1_IR', 'B1_VFA'}
+                % Nothing to do here
             otherwise
                 error('Unkown minimization metric flag')
         end
@@ -22,11 +24,12 @@ function minValue = findMinDeltaMetricVal(obj, metricValues)
             % deltaVals . takes the ratio, and the smallest value will be the
             % lowest increase in stderr
             deltaVals = metricValues/previousMetricVal;
-            
-            minValIndex = find(deltaVals == min(deltaVals));
-            minValue = metricValues(minValIndex);
+        case {'B1_IR', 'B1_VFA'}
+            deltaVals = abs(metricValues);
         otherwise
             error('Unkown minimization metric flag')
     end
 
+    minValIndex = find(deltaVals == min(deltaVals));
+    minValue = metricValues(minValIndex);
 end

@@ -10,13 +10,13 @@ function [] = computeSingle(obj, metricFlag)
         error('IterativeOptimization:UnknownMetric', 'Unkown minimization metric.')
     end
 
-    while any(~obj.rankedAcqPoints)
+    while sum(~obj.rankedAcqPoints) >= length(obj.fitParams)
         %% Get subset of Jacobian
         [jacobianSubset, acqPointRows] = obj.getJacobianSubset();
         
         %% Calculate the minimization metrics for each N-1 row subsets
         % metricValues will be same dims as acqPointRows
-        metricValues = obj.calcMetricFor_N_Minus_1_Subsets(jacobianSubset);
+        metricValues = obj.calcMetricFor_N_Minus_1_Subsets(jacobianSubset, acqPointRows);
         
         %% Find & store the metric value with minimum increase relative to last iteration
         %
