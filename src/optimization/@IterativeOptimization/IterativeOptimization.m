@@ -16,6 +16,9 @@ classdef IterativeOptimization < SeqOptimization
         fitParamsValues
         fitParamJacobian
         
+        b1Params
+        b1ParamsJacobian
+        
         rankedAcqPoints % Default is 0s
         metricValsAcqPoints % Default is nan;
     end
@@ -29,8 +32,14 @@ classdef IterativeOptimization < SeqOptimization
             obj.jacobianObj = SeqJacobian_Obj;
             obj.opts = opts;
             
-            % Set properties
+            % Set opts
             obj.fitParams = obj.opts.fitParams;
+            if isfield(opts,'b1Params')
+                obj.b1Params = obj.opts.b1Params;
+                obj.setB1ParamsJacobian();
+            end
+            
+            % Set properties
             obj.setFitParamJacobian();
             obj.setFitParamsValues();
             obj.resetRankedAcqPoints();
@@ -46,7 +55,8 @@ classdef IterativeOptimization < SeqOptimization
     end
     
     methods (Access = protected)
-       setFitParamJacobian(jacobianObj, fitParams)
+       setFitParamJacobian(obj)
+       setB1ParamsJacobian(obj)
        resetRankedAcqPoints(obj)
        resetMetricValsAcqPoints(obj)
        
