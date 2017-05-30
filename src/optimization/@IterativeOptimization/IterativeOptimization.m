@@ -6,9 +6,11 @@ classdef IterativeOptimization < SeqOptimization
     %   --Methods--
     %
 
+    properties (Access = public)
+       metricSet = {'CRLB'}; % Valid optimization metrics 
+    end
+    
     properties (Access = protected)
-        metricSet = {'CRLB'}; % Valid optimization metrics
-
         minimMetric
         normalizationFlag = 'Normalized';
         
@@ -37,6 +39,11 @@ classdef IterativeOptimization < SeqOptimization
             if isfield(opts,'b1Params')
                 obj.b1Params = obj.opts.b1Params;
                 obj.setB1ParamsJacobian();
+                
+                % Add B1Param names into the valid metric set to optimize for
+                for ii = 1:length(obj.opts.b1Params)
+                    obj.metricSet{end+1} = obj.opts.b1Params{ii};
+                end
             end
             
             % Set properties
