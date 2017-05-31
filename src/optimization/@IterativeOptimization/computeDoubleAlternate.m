@@ -12,7 +12,7 @@ function [] = computeDoubleAlternate(obj, metricFlags)
         error('IterativeOptimization:UnknownMetric', 'Unkown minimization metric.')
     end
     
-    while sum(~obj.rankedAcqPoints) >= length(obj.fitParams)
+    while sum(~obj.rankedAcqPoints) > length(obj.fitParams)
         %% Get subset of Jacobian
         [jacobianSubset, acqPointRows] = obj.getJacobianSubset();
         
