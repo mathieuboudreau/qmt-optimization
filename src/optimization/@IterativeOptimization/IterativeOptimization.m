@@ -60,6 +60,7 @@ classdef IterativeOptimization < SeqOptimization
         % Get Methods
         rankedAcqPoints = getRankedAcqPoints(obj)
         metricValsAcqPoints  = getMetricValsAcqPoints(obj)
+        [rankedAcqPoints_sorted, metricValsAcqPoints_sorted] = getSorted(obj)
     end
     
     methods (Access = protected)
