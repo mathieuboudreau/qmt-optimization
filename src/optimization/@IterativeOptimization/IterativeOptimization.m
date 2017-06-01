@@ -13,6 +13,9 @@ classdef IterativeOptimization < SeqOptimization
     properties (Access = protected)
         minimMetric
         normalizationFlag = 'Normalized';
+
+        regularizationTerm
+        regularizationCoeff
         
         fitParams
         fitParamsValues
@@ -23,6 +26,7 @@ classdef IterativeOptimization < SeqOptimization
         
         rankedAcqPoints % Default is 0s
         metricValsAcqPoints % Default is nan;
+        reguTermValsAcqPoints
     end
 
     methods (Access = public)
@@ -56,13 +60,16 @@ classdef IterativeOptimization < SeqOptimization
         % Compute methods
         computeSingle(obj, metricFlag)
         computeDoubleAlternate(obj, metricFlags)
+        computeRegularized(obj, metricFlags, regularizationCoeff)
         
         % Get Methods
         rankedAcqPoints = getRankedAcqPoints(obj)
         metricValsAcqPoints  = getMetricValsAcqPoints(obj)
+        reguTermValsAcqPoints  = getReguTermValsAcqPoints(obj)
+        
         [rankedAcqPoints_sorted, metricValsAcqPoints_sorted] = getSorted(obj)
+        [rankedAcqPoints_sorted, reguTermValsAcqPoints_sorted] = getSortedRegTerm(obj)
         [rankedAcqPoints_sorted, protocol_sorted] = getSortedProtocol(obj)
-
     end
     
     methods (Access = protected)
@@ -70,12 +77,13 @@ classdef IterativeOptimization < SeqOptimization
        setB1ParamsJacobian(obj)
        resetRankedAcqPoints(obj)
        resetMetricValsAcqPoints(obj)
-       
+       resetReguTermValsAcqPoints(obj)
        
        [jacobianSubset, acqPointRows] = getJacobianSubset(obj)
        minValue = findMinDeltaMetricVal(obj, metricValues)
        minValue = findMinDeltaMetricVal_DoubleAlternate(obj, metricValues)
-
+       [minMetriValue, minRegTermValue] = findMinDeltaMetricVal_Regularization(obj, minimMetricValues, regTermValues)
+       
        metricValues = calcMetricFor_N_Minus_1_Subsets(obj, jacobianSubset, acqPointRows)
     end
 

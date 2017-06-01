@@ -2,7 +2,7 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
 
     properties
     	demoJacobian = 'savedjacobians/test_jacobian.mat';
-        demoOpts = struct('fitParams', {{'F', 'kf', 'T2f', 'T2r'}});
+        demoOpts = struct('fitParams', {{'F', 'kf', 'T2f', 'T2r'}}, 'b1Params', {{'B1_IR', 'B1_VFA'}});
     end
     
     methods (TestClassSetup)
@@ -47,7 +47,7 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
          end
 
          
-         function test_getRankedAcqPoints_returns_NO_0s_after_initialization(testCase)
+         function test_getRankedAcqPoints_returns_not_more_numParam_0s_after_comp(testCase)
 
              load(testCase.demoJacobian, 'jacobianObj');
              optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
@@ -56,10 +56,10 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
              
              rankedAcqPoints = optObj.getRankedAcqPoints();
 
-             assertTrue(testCase, all(rankedAcqPoints));
+             assertTrue(testCase, sum(logical(~rankedAcqPoints)) <= length(testCase.demoOpts.fitParams));
          end
          
-         function test_getMetricValsAcqPoints_returns_NO_nans_after_initiali(testCase)
+         function test_getMetricValsAcqPoints_not_more_numParam_nans_after_comp(testCase)
 
              load(testCase.demoJacobian, 'jacobianObj');
              optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
@@ -68,7 +68,43 @@ classdef (TestTags = {'Unit'}) IterativeOptimization_Test < matlab.unittest.Test
 
              metricValsAcqPoints = optObj.getMetricValsAcqPoints();
 
-             assertFalse(testCase, any( isnan(metricValsAcqPoints) ));
+             assertTrue(testCase,  sum(isnan(metricValsAcqPoints)) <= length(testCase.demoOpts.fitParams) );
+         end
+         
+         function test_computeRegularized_w_0_coeff_ret_same_as_compSingle_CRLB(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
+             
+             optObj.computeSingle('CRLB');
+             rankedAcqPoints_single = optObj.getRankedAcqPoints();
+             metricValsAcqPoints_single = optObj.getMetricValsAcqPoints();
+
+             optObj.computeRegularized({'CRLB', 'B1_VFA'}, 0);
+             rankedAcqPoints_regularized = optObj.getRankedAcqPoints();
+             metricValsAcqPoints_regularized = optObj.getMetricValsAcqPoints();
+             
+             testCase.assertEqual(rankedAcqPoints_single, rankedAcqPoints_regularized);
+             testCase.assertEqual(metricValsAcqPoints_single, metricValsAcqPoints_regularized);
+
+         end
+         
+         function test_computeRegularized_w_0_coeff_ret_same_as_compSingle_B1(testCase)
+
+             load(testCase.demoJacobian, 'jacobianObj');
+             optObj = IterativeOptimization(jacobianObj, testCase.demoOpts);
+             
+             optObj.computeSingle('B1_VFA');
+             rankedAcqPoints_single = optObj.getRankedAcqPoints();
+             metricValsAcqPoints_single = optObj.getMetricValsAcqPoints();
+
+             optObj.computeRegularized({'B1_VFA', 'CRLB'}, 0);
+             rankedAcqPoints_regularized = optObj.getRankedAcqPoints();
+             metricValsAcqPoints_regularized = optObj.getMetricValsAcqPoints();
+             
+             testCase.assertEqual(rankedAcqPoints_single, rankedAcqPoints_regularized);
+             testCase.assertEqual(metricValsAcqPoints_single, metricValsAcqPoints_regularized);
+
          end
     end
 
