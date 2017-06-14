@@ -1,10 +1,63 @@
 classdef IterativeOptimization < SeqOptimization
     %ITERATIVEOPTIMIZATION Optimize a set of qMT acquisitions iteratively.
     %
-    %   --Initialization--
+    %   --Initialization Args--
+    %   1) SeqJacobian_Obj: SeqJacobian subclass object.
+    %   2) opts: Optimization options struct
+    %   	*opts properties*
+    %       fitParams: (required)Cell array of strings of the fit 
+    %                  parameters defined in the Jacobian object.
     %
-    %   --Methods--
+    %       b1Params: (optional)Cell array of strings of the B1
+    %                 parameters defined in the Jacobian object. These
+    %                 strings are added to the metricSet property for
+    %                 valid optimization metrics.
     %
+    %   --Public Methods--
+    %   computeSingle(metricFlag): Iteratively optimize protocol by
+    %                              minimizing the metricFlag.
+    %           (metricFlag: String. One defined in the metricSet public property)
+    %
+    %   computeDoubleAlternate(metricFlags): Iteratively optimize protocol alternating between 
+    %                                        minimizing the methods set in by the strings in the 
+    %                                        metricFlags.
+    %           (metricFlags: 1x2 Cell array of strings. Defined in the
+    %           metricSet public property.)
+    %
+    %   computeRegularized(metricFlags, regularizationCoeff): Iteratively optimize protocol by minimizing 
+    %                                                         metricFlags{1}, regularized by metricFlags{2}. 
+    %                                                         regularizationCoefficient is the multiplificative
+    %                                                         factor of metricFlags{2}.
+    %           (metricFlags: 1x2 Cell array of strings. Defined in the
+    %           metricSet public property.
+    %
+    %           regularizationCoeff: int/float/double.)
+    %       
+    %   
+    %   getRankedAcqPoints(): Returns thearry of protocol acquisition point
+    %                         rankings from the iterative optimization.
+    %
+    %   getMetricValsAcqPoints(): Returns the array of values of metrics
+    %                             for the protocol after that protocol point
+    %                             was removed in the iterative optimization.
+    %
+    %   getReguTermValsAcqPoints(): Returns the array of values of the
+    %                               regularization metric for the protocol 
+    %                               after that protocol point was removed 
+    %                               in the iterative optimization. Only 
+    %                               valid if computeRetularized called to
+    %                               optimized the protocol.
+    %
+    %   getSorted(): Returns [rankedAcqPoints_sorted,  metricValsAcqPoints_sorted], 
+    %                which are sorted in descending order for the acqPoints.
+    %
+    %   getSortedRegTerm(): Returns [rankedAcqPoints_sorted, reguTermValsAcqPoints_sorted], 
+    %                       which are sorted in descending order for the acqPoints.
+    %
+    %   getSortedProtocol(): Returns [rankedAcqPoints_sorted, protocol_sorted],
+    %                        where protocol_sorted is the protocol property
+    %                        of the jacobianStruc (property of SeqJacobian
+    %                        objects).
 
     properties (Access = public)
        metricSet = {'CRLB'}; % Valid optimization metrics 

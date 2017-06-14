@@ -3,8 +3,8 @@ classdef (Abstract = true) SeqOptimization < handle
     %
 
     properties (Access = protected)
-        jacobianObj
-        opts
+        jacobianObj % SeqJacobian subclass
+        opts % Optimization options struct
     end
 
     methods (Access = public)
