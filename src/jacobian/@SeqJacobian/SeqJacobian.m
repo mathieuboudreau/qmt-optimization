@@ -24,7 +24,7 @@ classdef (Abstract = true) SeqJacobian < handle
         
         % Get methods
         jacobianMatrix = getJacobian(obj)
-        jacobianMatrix = getJacobianStruct(obj)
+        jacobianStruct = getJacobianStruct(obj)
 
         % Methods for Jacobian computation
         computeOpts = compute(obj, computeOpts)
