@@ -39,6 +39,17 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
 
          end
 
+         function test_SPGR_MonteCarlo_doesnt_throw_error_during_proper_initiali(testCase)
+             testError.identifier='No Error';
+             
+             try 
+                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue))
+             catch ME
+                 testError = ME;
+             end
+            
+             assertEqual(testCase, testError.identifier, 'No Error');
+         end
     end
 
 end

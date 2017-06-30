@@ -3,7 +3,8 @@ classdef (Abstract = true) SeqMonteCarlo < handle
     %
 
     properties (Access = protected)
-
+        protocolObj
+        tissueParamsObj
     end
 
     methods (Access = public)
