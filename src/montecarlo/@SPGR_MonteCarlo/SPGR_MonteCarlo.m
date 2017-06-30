@@ -11,6 +11,9 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
     properties (Access = protected)
     end
 
+    properties (Access = public)
+    end
+    
     methods (Access = public)
         % Constructor
         function obj = SPGR_MonteCarlo(SPGR_Protocol_Obj, SPGR_Tissue_Obj)
@@ -21,16 +24,13 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
 
             obj.protocolObj = SPGR_Protocol_Obj;
             obj.tissueParamsObj = SPGR_Tissue_Obj;
-
         end
     end
     
     methods (Access = protected)
-
     end
 
     methods (Static, Access = public)
-        
     end
 
 end

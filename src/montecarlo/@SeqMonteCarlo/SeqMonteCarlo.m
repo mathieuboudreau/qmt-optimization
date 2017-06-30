@@ -5,6 +5,8 @@ classdef (Abstract = true) SeqMonteCarlo < handle
     properties (Access = protected)
         protocolObj
         tissueParamsObj
+        
+        noiselessSignal
     end
 
     methods (Access = public)
@@ -17,7 +19,9 @@ classdef (Abstract = true) SeqMonteCarlo < handle
             assert(isa(SeqProtocolInstance, 'SeqProtocol'), 'SeqJacobian:missingClass', 'First input argument to SeqJacobian subclasses must be an object that has a parent class of type ''SeqProtocol''')
             assert(isa(TissueParamsInstance, 'TissueParams'), 'TissueParams:missingClass', 'Second input argument to SeqJacobian subclasses must be an object that has a parent class of type ''TissueParams''')
         end
-
+        
+        % Generate noiseless signal using initialized tissue and protocol
+        noiselessSignal = genSignal(obj)
     end
 
     methods (Access = protected)

@@ -14,6 +14,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
     end
     
     methods (Test)
+         %% Initialization Tests
+         %
+         
          function test_SPGR_MonteCarlo_throws_error_for_bad_arg_parent_types(testCase)
                           
              % Bad first argument parent type
@@ -49,6 +52,29 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              end
             
              assertEqual(testCase, testError.identifier, 'No Error');
+         end
+         
+         %% Generation Tests
+         %
+         
+         function test_SPGR_MonteCarlo_genSignal_returns_expected_dims(testCase)
+             protocolObj = SPGR_Protocol(testCase.demoProtocol);
+             tissueObj = SPGR_Tissue(testCase.demoTissue);
+             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
+             
+             
+             prot = protocolObj.getProtocol();
+             
+             if size(prot.Angles) == size(prot.Offsets)
+                numMeas = size(prot.Angles);
+             else
+                 error('Unexpected protocol structure format; size of Angles and Offsets not equal.')
+             end
+             
+             noiselessSignal = MCobj.genSignal();
+             
+             assertEqual(testCase, numMeas, size(noiselessSignal));
          end
     end
 
