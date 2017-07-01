@@ -30,6 +30,9 @@ classdef (Abstract = true) SeqMonteCarlo < handle
             end
         end
         
+        % Generate noise dataset
+        noisyDataset = genNoisyDataset(obj, snrLevel, numPoints)
+
         % Get methods
         noiselessSignal = getNoiselessSignal(obj);
     end
@@ -37,6 +40,9 @@ classdef (Abstract = true) SeqMonteCarlo < handle
     methods (Access = protected)
         % Generate noiseless signal using initialized tissue and protocol
         noiselessSignal = genSignal(obj)
+
+        % Add noise to the noiselessSignal array
+        noisySignal = addNoise(obj, snrLevel)
     end
 
     methods (Static, Access = public)

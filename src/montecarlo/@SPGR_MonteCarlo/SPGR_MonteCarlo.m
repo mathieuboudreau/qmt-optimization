@@ -27,6 +27,9 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
     methods (Access = protected)
         % Generate noiseless signal using initialized tissue and protocol
         noiselessSignal = genSignal(obj)
+
+        % Add noise to the noiselessSignal array
+        noisySignal = addNoise(obj, snrLevel)
     end
 
     methods (Static, Access = public)
