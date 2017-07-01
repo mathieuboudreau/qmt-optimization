@@ -21,13 +21,12 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
 
             assert(isa(SPGR_Protocol_Obj, 'SPGR_Protocol'))
             assert(isa(SPGR_Tissue_Obj, 'SPGR_Tissue'))
-
-            obj.protocolObj = SPGR_Protocol_Obj;
-            obj.tissueParamsObj = SPGR_Tissue_Obj;
         end
     end
     
     methods (Access = protected)
+        % Generate noiseless signal using initialized tissue and protocol
+        noiselessSignal = genSignal(obj)
     end
 
     methods (Static, Access = public)

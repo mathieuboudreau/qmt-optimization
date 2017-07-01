@@ -18,6 +18,8 @@ function noiselessSignal = genSignal(obj)
     % Using steady-state driven SPGR
     
     [noiselessSignal, ~] = SPGR_sim(tissueSim, protocol);
-
+    
+    % Store signal in object
+    obj.noiselessSignal = noiselessSignal;
 end
 

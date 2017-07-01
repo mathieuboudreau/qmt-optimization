@@ -53,11 +53,11 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
             
              assertEqual(testCase, testError.identifier, 'No Error');
          end
-         
-         %% Generation Tests
+
+         %% Get Methods Test
          %
          
-         function test_SPGR_MonteCarlo_genSignal_returns_expected_dims(testCase)
+         function test_SPGR_MonteCarlo_getNoiselessSignal_returns_expected_dims(testCase)
              protocolObj = SPGR_Protocol(testCase.demoProtocol);
              tissueObj = SPGR_Tissue(testCase.demoTissue);
              
@@ -71,11 +71,10 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              else
                  error('Unexpected protocol structure format; size of Angles and Offsets not equal.')
              end
-             
-             noiselessSignal = MCobj.genSignal();
-             
-             assertEqual(testCase, numMeas, size(noiselessSignal));
+                          
+             assertEqual(testCase, numMeas, size(MCobj.getNoiselessSignal));
          end
+         
     end
 
 end
