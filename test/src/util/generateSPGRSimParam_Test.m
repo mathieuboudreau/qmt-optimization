@@ -15,7 +15,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) generateSPGRSimParam_Test < matlab.unitte
         end
 
         function getDefaultSPGRParams(testCase)
-            load('../../../qMRILab/Models_Functions/SPGRfun/Parameters/DefaultSim.mat')
+            load('../../../qMRLab/Models_Functions/SPGRfun/Parameters/DefaultSim.mat')
             testCase.defaultFileName = FileName;
             testCase.defaultFileType = FileType;
             testCase.defaultOpt      = Opt;
