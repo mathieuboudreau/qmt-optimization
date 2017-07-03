@@ -9,6 +9,7 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
     %
 
     properties (Access = protected)
+        noisyDataset
     end
 
     properties (Access = public)

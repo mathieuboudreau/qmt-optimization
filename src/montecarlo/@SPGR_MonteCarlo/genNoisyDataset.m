@@ -7,4 +7,6 @@ function noisyDataset = genNoisyDataset(obj, snrLevel, numPoints)
                          %unique.
         noisyDataset(:,ii) = obj.addNoise(snrLevel);
     end
+    
+    obj.noisyDataset = noisyDataset;
 end
