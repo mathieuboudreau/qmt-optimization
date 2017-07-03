@@ -6,6 +6,18 @@ classdef (Abstract = true) SeqProtocol < handle
     %
     %   getProtocol should give the objects protocol details/variables in a
     %   human redable format for the user.
+    %
+    %   ancillaryMeasurements: Struct containing ancillary measurement
+    %                          details.
+    %           --fields--               
+    %           names: Names of ancillary measurements.
+    %           idealVals: containers.Map data type. Keys are the strings
+    %                      in the 'names' field. Values are the 
+    %                      default/ideal values.
+
+    properties (Access = private)
+        ancillaryMeasurements = struct('names' , [], 'dict', []); % Needs to be set in child classes.
+    end
 
     properties (Access = protected)
         protocol
