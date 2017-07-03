@@ -2,11 +2,16 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     %SPGR_PROTOCOL SPGR qMT Protocol class.
     %
     %   --Properties--
-    %   fitProtKeys: Keys representing additional/optional ancillary
-    %                measurements.
+    %   ancillaryMeasurements: Struct containing ancillary measurement
+    %                          details.
+    %           --fields--               
+    %           names: Names of ancillary measurements.
+    %           idealVals: containers.Map data type. Keys are the strings
+    %                      in the 'names' field. Values are the 
+    %                      default/ideal values.
     %
-    %   B1_value: Default (assumed) value for B1 map. Fixed to a value of
-    %            1.0 n.u.
+    %   fitProtKeys: Keys representing additional/optional ancillary
+    %                measurements with SeqJacobian compatibility.
     %
     %   --Methods--
     %   save(fileName): Save protocol to fileName.mat file.
@@ -34,9 +39,15 @@ classdef SPGR_Protocol < SeqProtocol & AbstractSPGR
     properties (Access = protected)
     end
     
+    properties (Access = public)
+        ancillaryMeasurements = struct('names'        , {{'B0map', 'B1map', 'R1map'}}, ...
+                                       'idealVals', containers.Map({'B0map', 'B1map', 'R1map'}, ...
+                                                                   {    0.0,     1.0,     NaN})); % Default values.
+                                                                 % {     Hz,    n.u.,       s}
+    end
+    
     properties (Constant, Access = public)
         fitProtKeys = {'B1_IR', 'B1_VFA'};
-        B1_value = 1.0;
     end
     
     methods (Access = public)

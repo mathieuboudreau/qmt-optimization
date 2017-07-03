@@ -8,10 +8,8 @@ function paramValue = getParameter(obj, protKey)
     end
 
     switch protKey
-        case 'B1_IR'
-            paramValue = obj.B1_value;
-        case 'B1_VFA'
-            paramValue = obj.B1_value;
+        case {'B1_IR', 'B1_VFA'}
+            paramValue = obj.ancillaryMeasurements.idealVals('B1map');
         otherwise
             error('Key not found');
     end
