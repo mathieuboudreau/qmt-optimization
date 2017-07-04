@@ -5,8 +5,11 @@ classdef (Abstract = true) SeqMonteCarlo < handle
     properties (Access = protected)
         protocolObj
         tissueParamsObj
-        
         noiselessSignal
+        noisyDataset
+
+        noiselessFittingData
+        noisyFittingData
     end
 
     methods (Access = public)
@@ -32,9 +35,13 @@ classdef (Abstract = true) SeqMonteCarlo < handle
         
         % Generate noise dataset
         noisyDataset = genNoisyDataset(obj, snrLevel, numPoints)
+        
+        % Prep data for fitting
+        data = prep(obj)
 
         % Get methods
         noiselessSignal = getNoiselessSignal(obj);
+        [noiselessFittingData, noisyFittingData] = getFittingData(obj)
     end
 
     methods (Access = protected)

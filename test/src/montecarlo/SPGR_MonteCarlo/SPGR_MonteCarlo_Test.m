@@ -91,6 +91,54 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              
              assertEqual(testCase, [size(MCobj.getNoiselessSignal(), 1), numPoints], size(noisyDataSet))
          end
+         
+         %% Data preparation tests
+         %
+         
+         function test_SPGR_MonteCarlo_prep_returns_expected_noiseless_sizes(testCase)
+             protocolObj = SPGR_Protocol(testCase.demoProtocol);
+             tissueObj = SPGR_Tissue(testCase.demoTissue);
+             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
+             
+             
+             snrVal = 150;
+             numPoints = 10000;
+             MCobj.genNoisyDataset(snrVal, numPoints);
+             
+             data = MCobj.prep();
+             
+             dataStruct = data.noiselessDataStruct;
+             
+             assertEqual(testCase, size(dataStruct.MTdata), [1 1 1 10])
+             assertEqual(testCase, size(dataStruct.B0map) , [1 1])
+             assertEqual(testCase, size(dataStruct.B1map) , [1 1])
+             assertEqual(testCase, size(dataStruct.R1map) , [1 1])
+             assertEqual(testCase, size(dataStruct.Mask)  , [1 1])
+         end
+         
+         function test_SPGR_MonteCarlo_prep_returns_expected_noisy_sizes(testCase)
+             protocolObj = SPGR_Protocol(testCase.demoProtocol);
+             tissueObj = SPGR_Tissue(testCase.demoTissue);
+             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
+             
+             
+             snrVal = 150;
+             numPoints = 10000;
+             MCobj.genNoisyDataset(snrVal, numPoints);
+             
+             data = MCobj.prep();
+             
+             dataStruct = data.noisyDataStruct;
+             
+             assertEqual(testCase, size(dataStruct.MTdata), [numPoints 1 1 10])
+             assertEqual(testCase, size(dataStruct.B0map) , [numPoints 1])
+             assertEqual(testCase, size(dataStruct.B1map) , [numPoints 1])
+             assertEqual(testCase, size(dataStruct.R1map) , [numPoints 1])
+             assertEqual(testCase, size(dataStruct.Mask)  , [numPoints 1])
+         end
+         
     end
 
 end
