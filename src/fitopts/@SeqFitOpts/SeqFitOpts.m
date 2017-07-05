@@ -8,6 +8,10 @@ classdef (Abstract = true) SeqFitOpts < handle
     %   details/variables in a human redable format for the user.
     %
 
+    properties (Access = private)
+       fitVars % Should contain all the required variable names required for the fitting
+    end
+    
     properties (Access = protected)
         fitOpts
     end
