@@ -32,6 +32,9 @@ classdef (Abstract = true) SeqFitOpts < handle
 
         % Set/Get methods
         prot = getFitOpts(obj)
+        
+        %   *Abstract*
+            [prevVal, newVal] = setFitVar(obj, varName, varValue)
     end
 
 end
