@@ -15,6 +15,9 @@ classdef (Abstract = true) SeqMonteCarlo < handle
 
         noiselessFittingData
         noisyFittingData
+        
+        % Data generated through fitting
+        fitResults
     end
 
     methods (Access = public)
@@ -46,6 +49,9 @@ classdef (Abstract = true) SeqMonteCarlo < handle
         % Prep data for fitting
         data = prep(obj)
 
+        % Fit data
+        data = fit(obj)
+        
         % Get methods
         noiselessSignal = getNoiselessSignal(obj);
         data = getFittingData(obj)

@@ -151,6 +151,29 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              assertEqual(testCase, size(dataStruct.Mask)  , [numPoints 1])
          end
          
+         %% Fit test
+         %
+         
+         function test_SPGR_MonteCarlo_fit_returns_expected_sizes(testCase)
+             protocolObj = SPGR_Protocol(testCase.demoProtocol);
+             tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
+             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);
+             
+             snrVal = 150;
+             numPoints = 10;
+             MCobj.genNoisyDataset(snrVal, numPoints);
+             
+             data = MCobj.prep();
+             fitResults = MCobj.fit()  ;      
+             
+             assertEqual(testCase, size(fieldnames(fitResults)), [2 1])
+             assertEqual(testCase, size(fitResults.noiselessDataset), size(fitResults.noisyDataset))
+             assertEqual(testCase, size(fitResults.noiselessDataset.F), [1 1])
+             assertEqual(testCase, size(fitResults.noisyDataset.F), [numPoints 1])
+             assertEqual(testCase, fitResults.noisyDataset.fields, {'F';'kf';'kr';'R1f';'R1r';'T2f';'T2r';'resnorm'})
+         end
     end
 
 end
