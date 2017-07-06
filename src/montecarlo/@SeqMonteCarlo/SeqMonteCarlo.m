@@ -3,9 +3,14 @@ classdef (Abstract = true) SeqMonteCarlo < handle
     %
 
     properties (Access = protected)
+        % Initialization arguments
         protocolObj
         tissueParamsObj
+        fitOptsObj
+
+        % Data generated through initialization
         noiselessSignal
+        
         noisyDataset
 
         noiselessFittingData
@@ -18,13 +23,15 @@ classdef (Abstract = true) SeqMonteCarlo < handle
         % handling the object.
         % e.g. obj = obj@SeqJacobian(SeqProtocolInstance, TissueParamsInstance);
         
-        function obj = SeqMonteCarlo(SeqProtocolInstance, TissueParamsInstance)
-            assert(isa(SeqProtocolInstance, 'SeqProtocol'), 'SeqJacobian:missingClass', 'First input argument to SeqJacobian subclasses must be an object that has a parent class of type ''SeqProtocol''')
-            assert(isa(TissueParamsInstance, 'TissueParams'), 'TissueParams:missingClass', 'Second input argument to SeqJacobian subclasses must be an object that has a parent class of type ''TissueParams''')
-            
+        function obj = SeqMonteCarlo(SeqProtocolInstance, TissueParamsInstance, SeqFitOptsInstance)
+            assert(isa(SeqProtocolInstance, 'SeqProtocol'), 'SeqJacobian:missingClass', 'First input argument to SeqMonteCarlo subclasses must be an object that has a parent class of type ''SeqProtocol''')
+            assert(isa(TissueParamsInstance, 'TissueParams'), 'TissueParams:missingClass', 'Second input argument to SeqMonteCarlo subclasses must be an object that has a parent class of type ''TissueParams''')
+            assert(isa(SeqFitOptsInstance, 'SeqFitOpts'), 'SeqFitOpts:missingClass', 'Third input argument to SeqMonteCarlo subclasses must be an object that has a parent class of type ''SeqFitOpts''')
+
             obj.protocolObj = SeqProtocolInstance;
             obj.tissueParamsObj = TissueParamsInstance;
-            
+            obj.fitOptsObj = SeqFitOptsInstance;
+
             % Generate noiseless signal upon initialization.
             try
                 obj.genSignal();

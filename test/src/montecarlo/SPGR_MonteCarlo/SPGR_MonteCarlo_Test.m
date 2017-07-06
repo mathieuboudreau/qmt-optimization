@@ -3,6 +3,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
     properties
         demoProtocol = 'savedprotocols/demo_SPGR_Protocol_for_UnitTest.mat';
         demoTissue = [0.122 3.97 1.1111 1 0.0272 1.0960e-05];
+        demoFitOpts = 'savedfitopts/demo_SPGR_FitOpts_for_UnitTest.mat';
     end
     
     methods (TestClassSetup)
@@ -22,7 +23,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              % Bad first argument parent type
              testError.identifier='No Error';
              try 
-                 SPGR_MonteCarlo('wrongType', SPGR_Tissue(testCase.demoTissue))
+                 SPGR_MonteCarlo('wrongType', SPGR_Tissue(testCase.demoTissue), SPGR_FitOpts(testCase.demoFitOpts))
              catch ME
                  testError = ME;
              end
@@ -33,20 +34,31 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              clear testError
              testError.identifier='No Error';
              try 
-                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), 'wrongType')
+                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), 'wrongType', SPGR_FitOpts(testCase.demoFitOpts))
              catch ME
                  testError = ME;
              end
 
              assertEqual(testCase, testError.identifier, 'TissueParams:missingClass');
 
+             % Bad third argument parent type
+             clear testError
+             testError.identifier='No Error';
+             try 
+                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue), 'wrongType')
+             catch ME
+                 testError = ME;
+             end
+
+             assertEqual(testCase, testError.identifier, 'SeqFitOpts:missingClass');
+             
          end
 
          function test_SPGR_MonteCarlo_doesnt_throw_error_during_proper_initiali(testCase)
              testError.identifier='No Error';
              
              try 
-                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue));
+                 SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue), SPGR_FitOpts(testCase.demoFitOpts));
              catch ME
                  testError = ME;
              end
@@ -60,9 +72,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
          function test_SPGR_MonteCarlo_getNoiselessSignal_returns_expected_dims(testCase)
              protocolObj = SPGR_Protocol(testCase.demoProtocol);
              tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
              
-             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
-             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);
              
              prot = protocolObj.getProtocol();
              
@@ -81,9 +93,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
          function test_SPGR_MonteCarlo_genNoisyDataset_returns_expected_dims(testCase)
              protocolObj = SPGR_Protocol(testCase.demoProtocol);
              tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
              
-             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
-             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);
              
              snrVal = 150;
              numPoints = 10000;
@@ -98,9 +110,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
          function test_SPGR_MonteCarlo_prep_returns_expected_noiseless_sizes(testCase)
              protocolObj = SPGR_Protocol(testCase.demoProtocol);
              tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
              
-             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
-             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);
              
              snrVal = 150;
              numPoints = 10000;
@@ -120,9 +132,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
          function test_SPGR_MonteCarlo_prep_returns_expected_noisy_sizes(testCase)
              protocolObj = SPGR_Protocol(testCase.demoProtocol);
              tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
              
-             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj);
-             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);           
              
              snrVal = 150;
              numPoints = 10000;

@@ -16,11 +16,12 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
     
     methods (Access = public)
         % Constructor
-        function obj = SPGR_MonteCarlo(SPGR_Protocol_Obj, SPGR_Tissue_Obj)
-            obj = obj@SeqMonteCarlo(SPGR_Protocol_Obj, SPGR_Tissue_Obj);
+        function obj = SPGR_MonteCarlo(SPGR_Protocol_Obj, SPGR_Tissue_Obj, SPGR_FitOpts_Obj)
+            obj = obj@SeqMonteCarlo(SPGR_Protocol_Obj, SPGR_Tissue_Obj, SPGR_FitOpts_Obj);
 
             assert(isa(SPGR_Protocol_Obj, 'SPGR_Protocol'))
             assert(isa(SPGR_Tissue_Obj, 'SPGR_Tissue'))
+            assert(isa(SPGR_FitOpts_Obj, 'SPGR_FitOpts'))
         end
     end
     
