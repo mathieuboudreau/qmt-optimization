@@ -1,7 +1,8 @@
-function [noiselessFittingData, noisyFittingData] = getFittingData(obj)
+function data = getFittingData(obj)
 %GETFITTINGDATA Get noiselessFittingData and noisyFittingData object 
 % properties.
 
-    noiselessFittingData = obj.noiselessFittingData;
-    noisyFittingData = obj.noisyFittingData;
+    data.noiselessFittingData = obj.noiselessFittingData;
+    data.noisyFittingData = obj.noisyFittingData;
+
 end

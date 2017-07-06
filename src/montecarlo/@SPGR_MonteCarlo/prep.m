@@ -14,17 +14,17 @@ function data  = prep(obj)
     %% Prep Noiseless Dataset
     %
 
-    data.noiselessDataStruct = prepDataset(obj, obj.noiselessSignal);
+    data.noiselessFittingData = prepDataset(obj, obj.noiselessSignal);
     
     %% Prep Noisy Dataset
     %
-    data.noisyDataStruct = prepDataset(obj, obj.noisyDataset);
+    data.noisyFittingData = prepDataset(obj, obj.noisyDataset);
 
     %% Store structs to class properties
     %
     
-    obj.noiselessFittingData = data.noiselessDataStruct;
-    obj.noisyFittingData = data.noisyDataStruct;
+    obj.noiselessFittingData = data.noiselessFittingData;
+    obj.noisyFittingData = data.noisyFittingData;
 
 end
 

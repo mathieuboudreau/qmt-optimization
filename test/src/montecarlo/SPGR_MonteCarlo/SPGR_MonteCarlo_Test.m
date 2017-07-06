@@ -108,7 +108,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              
              data = MCobj.prep();
              
-             dataStruct = data.noiselessDataStruct;
+             dataStruct = data.noiselessFittingData;
              
              assertEqual(testCase, size(dataStruct.MTdata), [1 1 1 10])
              assertEqual(testCase, size(dataStruct.B0map) , [1 1])
@@ -130,7 +130,7 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              
              data = MCobj.prep();
              
-             dataStruct = data.noisyDataStruct;
+             dataStruct = data.noisyFittingData;
              
              assertEqual(testCase, size(dataStruct.MTdata), [numPoints 1 1 10])
              assertEqual(testCase, size(dataStruct.B0map) , [numPoints 1])

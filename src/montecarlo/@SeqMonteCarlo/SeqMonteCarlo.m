@@ -41,7 +41,7 @@ classdef (Abstract = true) SeqMonteCarlo < handle
 
         % Get methods
         noiselessSignal = getNoiselessSignal(obj);
-        [noiselessFittingData, noisyFittingData] = getFittingData(obj)
+        data = getFittingData(obj)
     end
 
     methods (Access = protected)
