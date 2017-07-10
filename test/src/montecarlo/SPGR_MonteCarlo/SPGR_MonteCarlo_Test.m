@@ -166,7 +166,9 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              MCobj.genNoisyDataset(snrVal, numPoints);
              
              data = MCobj.prep();
-             fitResults = MCobj.fit()  ;      
+             MCobj.fit();      
+             
+             fitResults = MCobj.getFitResults();
              
              assertEqual(testCase, size(fieldnames(fitResults)), [2 1])
              assertEqual(testCase, size(fitResults.noiselessDataset), size(fitResults.noisyDataset))

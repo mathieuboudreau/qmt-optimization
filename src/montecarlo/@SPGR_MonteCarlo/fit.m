@@ -16,5 +16,5 @@ function fitResults = fit(obj)
     dataStruct = obj.noisyFittingData;
     fitResults.noisyDataset = FitData(dataStruct, protocolStruct, fitOptStruct, 'SPGR', 0);
 
+    obj.fitResults = fitResults;
 end
-
