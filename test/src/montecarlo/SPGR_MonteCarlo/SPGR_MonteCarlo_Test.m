@@ -1,4 +1,4 @@
-classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.TestCase
+classdef (TestTags = {'SPGR', 'Integration'}) SPGR_MonteCarlo_Test < matlab.unittest.TestCase
 
     properties
         demoProtocol = 'savedprotocols/demo_SPGR_Protocol_for_UnitTest.mat';
@@ -149,6 +149,79 @@ classdef (TestTags = {'SPGR', 'Unit'}) SPGR_MonteCarlo_Test < matlab.unittest.Te
              assertEqual(testCase, size(dataStruct.B1map) , [numPoints 1])
              assertEqual(testCase, size(dataStruct.R1map) , [numPoints 1])
              assertEqual(testCase, size(dataStruct.Mask)  , [numPoints 1])
+         end
+         
+         function test_SPGR_MonteCarlo_prep_errorStruct_returns_expected_vals(testCase)
+             protocolObj = SPGR_Protocol(testCase.demoProtocol);
+             tissueObj = SPGR_Tissue(testCase.demoTissue);
+             fitOptsObj = SPGR_FitOpts(testCase.demoFitOpts);
+             
+             MCobj = SPGR_MonteCarlo(protocolObj, tissueObj, fitOptsObj);
+             
+             snrVal = 150;
+             numPoints = 10000;
+             MCobj.genNoisyDataset(snrVal, numPoints);
+             
+             %% B1
+             %
+             prepErrorStruct.name = 'B1'; 
+             prepErrorStruct.errorPerc = 5;
+             
+             data = MCobj.prep(prepErrorStruct);
+             
+             dataStruct = data.noiselessFittingData;
+             
+             actualValue = dataStruct.B1map;
+             expectedValue = protocolObj.ancillaryMeasurements.idealVals('B1map')*(1+prepErrorStruct.errorPerc/100);
+             
+             assertEqual(testCase, actualValue, expectedValue)
+             
+             %% T1
+             %
+             
+             prepErrorStruct.name = 'T1'; 
+             prepErrorStruct.errorPerc = 10;
+             
+             data = MCobj.prep(prepErrorStruct);
+             
+             dataStruct = data.noiselessFittingData;
+             
+             actualValue = dataStruct.R1map;
+             
+             idealT1 = 1/protocolObj.ancillaryMeasurements.idealVals('R1map');
+             
+             expectedValue = 1/(idealT1*(1+prepErrorStruct.errorPerc/100));
+             
+             assertEqual(testCase, actualValue, expectedValue)
+             
+             %% B1_VFA
+             %
+             
+             prepErrorStruct.name = 'B1_VFA'; 
+             prepErrorStruct.errorPerc = 25;
+             
+             data = MCobj.prep(prepErrorStruct);
+             
+             dataStruct = data.noiselessFittingData;
+             
+             % B1 map assert
+             actualValue = dataStruct.B1map;
+             expectedValue = protocolObj.ancillaryMeasurements.idealVals('B1map')*(1+prepErrorStruct.errorPerc/100);
+             assertEqual(testCase, actualValue, expectedValue)
+             
+             % R1 map assert
+             actualValue = dataStruct.R1map;
+
+             TR = 0.025; % s
+             FAs = [3 20]; % deg
+             trueT1 = 1/protocolObj.ancillaryMeasurements.idealVals('R1map');
+             B1val = protocolObj.ancillaryMeasurements.idealVals('B1map')*(1 + prepErrorStruct.errorPerc/100);
+             [errT1Val , ~, ~, ~] = estimateVFAT1Error(trueT1, TR, FAs, B1val);
+             
+             expectedValue = (1/errT1Val); % R1 = 1/T1;
+             
+             assertEqual(testCase, actualValue, expectedValue)
+
          end
          
          %% Fit test

@@ -9,6 +9,7 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
     %
 
     properties (Access = protected)
+        prepErrorStruct
     end
 
     properties (Access = public)
@@ -23,6 +24,9 @@ classdef SPGR_MonteCarlo < SeqMonteCarlo
             assert(isa(SPGR_Tissue_Obj, 'SPGR_Tissue'))
             assert(isa(SPGR_FitOpts_Obj, 'SPGR_FitOpts'))
         end
+        
+        % Prep data for fitting
+        data  = prep(obj, prepErrorStruct)
     end
     
     methods (Access = protected)

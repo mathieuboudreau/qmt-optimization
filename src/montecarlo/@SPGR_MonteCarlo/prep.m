@@ -1,4 +1,4 @@
-function data  = prep(obj)
+function data  = prep(obj, prepErrorStruct)
 %PREP Prepare/reorganize the data into the format needed for fitting.
 %   In qMRLab, SPGR qMT data requires a "data" structure with the fields 
 %   MTdata, B0map, B1map, R1map, and Mask.
@@ -10,7 +10,29 @@ function data  = prep(obj)
 %
 %   The data structure 'data' is saved as an object property, and is also
 %   returned by the method call.
+%
+%   *Optional Arguments*
+%
+%   prepErrorStruct: Struct. Contains information required to simulate 
+%                    errors in certain ancillary measures.
+%
+%       *fields*
+%       name: String. Valid values: 'B1', 'T1', 'B1_IR', 'B1_VFA'
+%       errorPerc: Number. The error % relative to the ideal values of the
+%                  ancillary measure.
+%
+    %% Parse arguments
+    %
 
+    switch nargin
+        case 2
+            obj.prepErrorStruct = prepErrorStruct;
+        case 1
+            obj.prepErrorStruct = [];
+        otherwise
+            error('Method must be called from an object.')
+    end
+    
     %% Prep Noiseless Dataset
     %
 
@@ -48,15 +70,41 @@ function dataStruct = prepDataset(obj, mtDataSet)
     dataStruct.B0map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('B0map');    
 
     %% B1map
-
-    dataStruct.B1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('B1map');    
-
+    if ~isempty(obj.prepErrorStruct)
+        switch obj.prepErrorStruct.name
+            case {'B1', 'B1_IR', 'B1_VFA'}
+            	dataStruct.B1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('B1map')*(1 + obj.prepErrorStruct.errorPerc/100);    
+            otherwise
+                dataStruct.B1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('B1map');    
+        end
+    else    
+    	dataStruct.B1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('B1map');    
+    end
+    
     %% R1map
 
-    %Get VFA T1meas val for dB1
     obj.protocolObj.ancillaryMeasurements.idealVals('R1map') = getIdealR1Val(obj);
     
-    dataStruct.R1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('R1map');
+    if ~isempty(obj.prepErrorStruct)
+        switch obj.prepErrorStruct.name
+            case 'T1'
+                errT1Val = (1/obj.protocolObj.ancillaryMeasurements.idealVals('R1map'))*(1+obj.prepErrorStruct.errorPerc/100);
+            	dataStruct.R1map = ones(voxelDim, 1, 1)*(1/errT1Val);
+            case 'B1_VFA'
+                TR = 0.025; % s
+                FAs = [3 20]; % deg
+                trueT1 = 1/obj.protocolObj.ancillaryMeasurements.idealVals('R1map');
+                B1val = obj.protocolObj.ancillaryMeasurements.idealVals('B1map')*(1 + obj.prepErrorStruct.errorPerc/100);
+
+                [errT1Val , ~, ~, ~] = estimateVFAT1Error(trueT1, TR, FAs, B1val);
+                
+            	dataStruct.R1map = ones(voxelDim, 1, 1)*(1/errT1Val);
+            otherwise
+            	dataStruct.R1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('R1map');
+        end
+    else
+    	dataStruct.R1map = ones(voxelDim, 1, 1)*obj.protocolObj.ancillaryMeasurements.idealVals('R1map');
+    end
 
     %% Mask
     dataStruct.Mask = ones(voxelDim, 1, 1);
