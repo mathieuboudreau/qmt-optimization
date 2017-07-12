@@ -1,4 +1,4 @@
-classdef (Abstract = true) SeqMonteCarlo < handle
+classdef (Abstract = true) SeqMonteCarlo < matlab.mixin.Copyable
     %SEQMONTECARLO Abstract class to handle Monte Carlo simulations
     %
 

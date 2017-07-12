@@ -66,6 +66,15 @@ classdef (TestTags = {'SPGR', 'Integration'}) SPGR_MonteCarlo_Test < matlab.unit
              assertEqual(testCase, testError.identifier, 'No Error');
          end
 
+         function test_SPGR_MonteCarlo_deep_copy_returns_different_handle(testCase)
+             
+             originalObj = SPGR_MonteCarlo(SPGR_Protocol(testCase.demoProtocol), SPGR_Tissue(testCase.demoTissue), SPGR_FitOpts(testCase.demoFitOpts));
+             
+             newObj = originalObj.copy();
+             
+             testCase.assertTrue(ne(newObj, originalObj));
+         end
+
          %% Get Methods Test
          %
          
