@@ -1,6 +1,6 @@
 function [] = computeRegularized(obj, metricFlags, regularizationCoeff)
 %COMPUTEREGULARIZED Summary of this function goes here
-%   Detailed explanation goes here
+% B1-Regularization is only set for F currently.
 
     obj.resetRankedAcqPoints();
     obj.resetMetricValsAcqPoints();

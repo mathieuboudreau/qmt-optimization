@@ -23,7 +23,7 @@ function metricValues = calcMetricFor_N_Minus_1_Subsets(obj, jacobianSubset, acq
                 B1error = 0.05;
                 
                 paramErrors = SeqOptimization.minimizeParamErrorBecauseOfMeasError(nm1Jacobian, nm1B1JacMat, B1error)'./obj.fitParamsValues.*100;
-                metricValues(ii,1) = paramErrors(1);
+                metricValues(ii,1) = paramErrors(1); % Regularization is only set for F currently.
             otherwise
                error('IterativeOptimization:UnknownMetric', 'Unkown minimization metric.')
         end
