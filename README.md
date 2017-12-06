@@ -97,7 +97,7 @@ and execute the following command.
 `result = runtests(pwd, 'Recursively', true)`
 
 Any failed test should be resolved prior to starting a workflow. Users are invited to raise the issue on the GitHub
-repository: https://github.com/mathieuboudreau/qMTLab_Tab1s/issues
+repository: https://github.com/mathieuboudreau/qmt-optimization/issues
 
 ### Run Test Suite
 
