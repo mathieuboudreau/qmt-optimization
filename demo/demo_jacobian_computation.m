@@ -21,7 +21,7 @@ clear T1f
 tissueObj  = SPGR_Tissue(tissueParams);
 
 % Protocol object creation
-protocolLocation = 'protocols/312pt_12_FAs_26_offsets.mat'; % SPGR qMT protocol saved through the qMRLab GUI (qMRILab.m opens GUI)
+protocolLocation = 'protocols/312pt_12_FAs_26_offsets.mat'; % SPGR qMT protocol saved through the qMRLab GUI (qMRILab.m opens GUI). Note that the Sf cache table needs to be computed prior to saving protocols, or computed for a larger protocol before downsizing to a sub-protocol.
 protocolObj = SPGR_Protocol(protocolLocation);
 
 %% Prepare Jacobian object and computation options
@@ -41,7 +41,7 @@ computeOpts.lineBuffer = 26; % Number of jacobian lines computer per jacobian.co
 parpool % Startup  parrallel processing workers, if available
 iterVal = 1;
 
-disp('Begining Jacobian computation')
+disp('Beginning Jacobian computation')
 while ~strcmp(computeOpts.mode, 'Completed')
     computeOpts = jacobianObj.compute(computeOpts);
     

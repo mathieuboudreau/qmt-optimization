@@ -1,27 +1,33 @@
-# qMTLab Tab<sub>1</sub>s
+# Quantitative Magnetization Transfer MRI Optimization Toolbox
 
-qMTLab Tab<sub>1</sub>s (opTimizAtion for B<sub>1</sub> inSensitivity) 
+qmt-optimization is a qMT acquisition design optimization toolbox that wraps around [qMRLab](https://github.com/neuropoly/qMRLab).
+This toolbox uses an iterative reduction optimization algorithm to optimize the acquisition protocols for spoiled gradient echo qMT
+sensitivity against noise (using the Cramér-Rao lower bound) and also sensitivity-regularization for robustness of a qMT
+parameter-of-interest against inaccuracies in the additional measurements required for qMT (e.g. B<sub>1</sub>).
+Currently, sensitivity-regularized optimization mode is only available for the pool-size ratio (F) sensitivity against B<sub>1</sub>-inaccuracies 
+- read the class documentation for more details.
 
-It is an extension of qMTLab, a powerful, open source, scalable, easy to use and intuitive software for qMTI data simulation, fitting and analysis. The software consists of two parts:
-1) a qMT data simulator
-2) a qMT data fitting and visualization interface
+## Getting Started
 
-qMTLab Tab<sub>1</sub>s extends the functionality to optimize the acquisition protocols of various qMT techniques to minimize
-sensitivity against noise (using Fisher Information minimizations) as well as B<sub>1</sub>-sensitivity for chosen
-parameters-of-interest.
+After [installation](#Installation), the next step should be to run all automated software tests to ensure 
+that the software is working as expected. Details on how to run Matlab's testing framework 
+for this toolbox are described in the [tests](#Tests) section below.
 
-## Documentation
+Several demos are included in this package, and are located in the [demo/](https://github.com/mathieuboudreau/qmt-optimization/blob/master/demo/) 
+folder. New usersare recommended to read and run these demos for guidance on how to use the software. We 
+recommended that these demos are explored in the following order, which follows the 
+typical usage pattern:
 
-For a quick introduction to qMTLab functionnalities, see the [qMTLab PowerPoint e-poster](https://github.com/neuropoly/qMTLab/raw/master/qMTLab-Presentation.ppsx) which was presented at the 2016 ISMRM conference. You can also watch the presentation on [YouTube](https://youtu.be/WG0tVe-SFww).
+1. [demo\_jacobian\_computation.m](https://github.com/mathieuboudreau/qmt-optimization/blob/master/demo/demo_jacobian_computation.m)
+2. [demo\_optimization.m](https://github.com/mathieuboudreau/qmt-optimization/blob/master/demo/demo_optimization.m)
+3. [demo\_montecarlo\_simulation.m](https://github.com/mathieuboudreau/qmt-optimization/blob/master/demo/demo_montecarlo_simulation.m)
 
-For more in-detail explanations, please read the ['ReadMe.docx'](https://github.com/neuropoly/qMTLab/raw/master/ReadMe.docx).
-
-qMTLab was published in Concepts in Magnetic Resonance Part A: [*Quantitative magnetization transfer imaging made easy with qMTLab: Software for data simulation, analysis, and visualization*](http://onlinelibrary.wiley.com/doi/10.1002/cmr.a.21357/abstract)
+Some features may require knowledge of qMRLab GUI features (e.g. setting up and saving a protocol, or caching the Sf table).
+For details on how to use qMRLab, read the documentation included in the submodule's folder or the (more up-to-date) qMRLab repository [here](https://github.com/neuropoly/qMRLab).
 
 ## Installation
 
-Installing qMTLab Tab<sub>1</sub>s is easy! All you need is a supported version of MATLAB installed, no additional 
-software is required. 
+All you need is a supported version of MATLAB installed, no additional software is required. 
 
 After installation, we strongly recommend that you run all tests in this repository (see Test section below) to ensure correct installation and code compatibility with your operating system and Matlab version.
 
@@ -33,26 +39,25 @@ If you have git available on a command-line interface (e.g. Terminal on Mac OSX,
 
 * Clone the directory:
 
-`git clone https://github.com/mathieuboudreau/qMTLab_Tabs.git`
+`git clone https://github.com/mathieuboudreau/qmt-optimization.git`
 
-* Change directory to the cloned repo: `cd qMTLab_Tabs`
+* Change directory to the cloned repo: `cd qmt-optimization`
 
 * Install the submodule(s): `git submodule update --init`
 
 ### Zip Download Instructions
 
-The latest stable version of qMTLab Tab<sub>1</sub>s can be downloaded freely [here](https://github.com/mathieuboudreau/qMTLab_Tab1s/tarball/master).
+The latest stable version of qmt-optimization can be downloaded freely [here](https://github.com/mathieuboudreau/qmt-optimization/tarball/master).
 
-* Extract the downloaded file to the directory you want to install qMTLab_Tab1s.
+* Extract the downloaded file to the directory you want to install qmt-optimization.
 
-* Rename the folder to *qMTLab_Tab1s*.
+* Rename the folder to *qmt-optimization*.
 
-* Download the qMTLab submodule (using the current stable commit) [here](https://github.com/mathieuboudreau/qMTLab/tarball/869656fece8596dcb9c2d44b25f72e50ab26ee93)
+* Download the suggested (stable) qMRLab submodule version [here](https://github.com/mathieuboudreau/qMRLab/tarball/bba9fb2bd2b2145c2dfe4b1e550b7dc02091cfe3)
 
-* Extract the downloaded file to a temporary location - *not the qMTLab_Tab1s repository.*
+* Extract the downloaded file to a temporary location - *not the qmt-optimization repository.*
 
-* Copy or cut the **contents** of the extracted directory into the folder *qMTLab_Tab1s/qMTLab/*
-
+* Copy or cut the **contents** of the extracted directory into the folder *qmt-optimization/qMRLab/*
 
 ### Windows/Mac line endings Git compatibility fix
 
@@ -60,19 +65,17 @@ The code was mostly developed using a Mac OSX system. In my experience, when fir
 
 To resolve this, I suggest you:
 
-*  Delete your installed qMTLab_Tab1s repository
+*  Delete your installed qmt-optimization repository
 
 * In the command line, run `git config --global core.autocrlf false`
 
-* Reinstall qMTLab_Tab1s
+* Reinstall qmt-optimization
 
 ## Supported MATLAB versions
 
 This software has been tested and is known to work with the following versions:
 
-* R2015b (64-bit)
-
-If you experience any compatibility issues, please report them through [GitHub](https://github.com/neuropoly/qMTLab/issues).
+* R2017a (64-bit)
 
 ## Tests
 
@@ -81,7 +84,7 @@ your MATLAB version should be compatible and the software will have completely i
 
 ### Run all tests
 
-Running all tests is a time consuming and processor-intensive process. On a stock MacBook pro, this can take up to 20 
+Running all tests is a time consuming and processor-intensive process. On a standard MacBook pro, this can take 20 to 30 minutes
 minutes. You should only need to do this after a fresh install of the software, after updating your MATLAB version, or if an 
 unknown error occurred during your workflow.
 
@@ -124,40 +127,11 @@ Test tags:
 
 * Sensitivity
 
-## Data Format
-
-## To-Do
-
-* Create 2D Shepp-Logan phantom generator for specific tissue tags
-
-* Convert extra high res shepp-logan phantom to imaging resolution, to investigate multi-tissue voxel impact
-
-* Function that takes Shepp-Logan phantom and qMT protocol as args, and outputs the ideal qMT measured values.
-
-* Function that takes ideal qMT Shepp-Logan set and noise level, and adds noise to images.
-
-* qMT data fitting framework integration with qMTLab
-
-* Script to investigate B1 errors varying homogeneously %-wise for scaled values (1%, 5%, 10%, 25%), or higher res?
-
-* Script to investigate Nominal Flip Angle assumption on qMT.
-
-
 ## Contributing
 
-Please report any bugs or suggest new features through [GitHub](https://github.com/mathieuboudreau/qMTLab_Tabs/issues).
-
-## Citation
-
-If you use qMTLab in you work, please cite:
-
-Cabana, J.-F., Gu, Y., Boudreau, M., Levesque, I. R., Atchia, Y., Sled, J. G., Narayanan, S., Arnold, D. L., Pike, G. B., Cohen-Adad, J., Duval, T., Vuong, M.-T. and Stikov, N. (2015), _Quantitative magnetization transfer imaging made easy with qMTLab: Software for data simulation, analysis, and visualization_. Concepts Magn. Reson., 44A: 263–277. doi: 10.1002/cmr.a.21357
+Please report any bugs or suggest new features by opening a [GitHub issue](https://github.com/mathieuboudreau/qmt-optimization/issues).
 
 ## About Me
 
 **Mathieu Boudreau** is a PhD Candidate at McGill University in the Department of Biomedical Engineering. He holds a BSc in 
-Physics from the Universite de Moncton ('09), and a MSc in Physics from the University of Western Ontario ('11).
-
-## About NeuroPoly
-
-**NeuroPoly** is a research laboratory specialized in neuroimaging. It is based at [École Polytechnique](http://www.polymtl.ca) on the [Université de Montréal](http://www.umontreal.ca) campus, in Montréal, Canada.
+Physics from the Université de Moncton ('09), and an MSc in Physics from the University of Western Ontario ('11)
