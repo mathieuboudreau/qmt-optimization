@@ -9,9 +9,9 @@ Currently, sensitivity-regularized optimization mode is only available for the p
 
 ## Getting Started
 
-After [installation](#Installation), the next step should be to run all automated software tests to ensure 
+After installation (see next section), the next step should be to run all automated software tests to ensure 
 that the software is working as expected. Details on how to run Matlab's testing framework 
-for this toolbox are described in the [tests](#Tests) section below.
+for this toolbox are described in the Tests section below.
 
 Several demos are included in this package, and are located in the [demo/](https://github.com/mathieuboudreau/qmt-optimization/blob/master/demo/) 
 folder. New usersare recommended to read and run these demos for guidance on how to use the software. We 
